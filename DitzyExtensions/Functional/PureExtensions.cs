@@ -5,9 +5,12 @@ using DitzyExtensions.Collection;
 
 namespace DitzyExtensions.Functional {
 	public static class PureExtensions {
-		public static ACC Reduce<T, ACC>(this IEnumerable<T> source, Func<ACC, T, ACC> reducer, ACC initial) {
+		public static ACC Reduce<T, ACC>(this IEnumerable<T> source, Func<ACC, T, ACC> reducer, ACC initial) =>
+			source.Reduce((acc, value, _) => reducer(acc, value), initial);
+
+		public static ACC Reduce<T, ACC>(this IEnumerable<T> source, Func<ACC, T, int, ACC> reducer, ACC initial) {
 			var acc = initial;
-			source.ForEach(value => { acc = reducer.Invoke(acc, value); });
+			source.ForEach((value, i) => { acc = reducer.Invoke(acc, value, i); });
 			return acc;
 		}
 
