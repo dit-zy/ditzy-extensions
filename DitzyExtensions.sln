@@ -2,6 +2,10 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DitzyExtensions", "DitzyExtensions\DitzyExtensions.csproj", "{7F44C925-6CBD-40A5-8F3A-61130FA0C76E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DitzyExtensions.Generators", "DitzyExtensions.Generators\DitzyExtensions.Generators.csproj", "{931CE5CD-39D1-407D-804F-D29F89CA1C9C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DitzyExtensions.Generators.Tests", "DitzyExtensions.Generators.Tests\DitzyExtensions.Generators.Tests.csproj", "{D2BE35FC-F75A-4AF4-A34E-AB00E61075D1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +16,13 @@ Global
 		{7F44C925-6CBD-40A5-8F3A-61130FA0C76E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7F44C925-6CBD-40A5-8F3A-61130FA0C76E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7F44C925-6CBD-40A5-8F3A-61130FA0C76E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{931CE5CD-39D1-407D-804F-D29F89CA1C9C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{931CE5CD-39D1-407D-804F-D29F89CA1C9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{931CE5CD-39D1-407D-804F-D29F89CA1C9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{931CE5CD-39D1-407D-804F-D29F89CA1C9C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2BE35FC-F75A-4AF4-A34E-AB00E61075D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2BE35FC-F75A-4AF4-A34E-AB00E61075D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2BE35FC-F75A-4AF4-A34E-AB00E61075D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2BE35FC-F75A-4AF4-A34E-AB00E61075D1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
