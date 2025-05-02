@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using CSharpFunctionalExtensions;
@@ -99,19 +99,19 @@ namespace DitzyExtensions.Collection {
 				.GroupBy(entry => entry.Item1)
 				.Select(grouping => grouping.Last().Item2);
 
-		public static IEnumerable<T> Sort<T>(this ICollection<T> source) {
+		public static IEnumerable<T> Sort<T>(this IEnumerable<T> source) {
 			var list = new List<T>(source);
 			list.Sort();
 			return list.AsList();
 		}
 
-		public static IEnumerable<T> Sort<T>(this ICollection<T> source, IComparer<T> comparer) {
+		public static IEnumerable<T> Sort<T>(this IEnumerable<T> source, IComparer<T> comparer) {
 			var list = new List<T>(source);
 			list.Sort(comparer);
 			return list.AsList();
 		}
 
-		public static IEnumerable<T> Sort<T>(this ICollection<T> source, Func<T, T, int> comparer) {
+		public static IEnumerable<T> Sort<T>(this IEnumerable<T> source, Func<T, T, int> comparer) {
 			var list = new List<T>(source);
 			list.Sort(new Comparison<T>(comparer));
 			return list.AsList();
