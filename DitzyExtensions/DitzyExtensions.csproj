@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<Authors>dit-zy</Authors>
@@ -25,6 +25,7 @@
 			OutputItemType="Analyzer"
 			ReferenceOutputAssembly="false"
 		/>
+		<PackageReference Include="System.Numerics.Vectors" Version="4.6.1" />
 		<PackageReference Include="CSharpFunctionalExtensions" Version="3.5.1"/>
 	</ItemGroup>
 
