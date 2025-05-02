@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>net9.0;net8.0;net7.0;net6.0;net48;netstandard2.0</TargetFrameworks>
+		<IsPackable>false</IsPackable>
+	</PropertyGroup>
+
+	<PropertyGroup Condition=" '$(TargetFramework)' != 'net48' And '$(TargetFramework)' != 'netstandard2.0' ">
+		<Nullable>enable</Nullable>
+		<LangVersion>12.0</LangVersion>
+	</PropertyGroup>
+
+	<PropertyGroup Condition=" '$(TargetFramework)' == 'net48' Or '$(TargetFramework)' == 'netstandard2.0' ">
+		<DefineConstants>N48_S2</DefineConstants>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="../DitzyExtensions/DitzyExtensions.csproj"/>
+		<ProjectReference Include="../DitzyExtensions.Testing/DitzyExtensions.Testing.csproj"/>
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="JetBrains.Annotations" Version="2024.3.0"/>
+
+		<PackageReference Include="FluentAssertions" Version="8.2.0"/>
+		<PackageReference Include="FsCheck" Version="3.2.0"/>
+		<PackageReference Include="FsCheck.Xunit" Version="3.2.0"/>
+		<PackageReference Include="Moq" Version="4.20.72"/>
+
+		<PackageReference Include="coverlet.collector" Version="6.0.4"/>
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.13.0"/>
+		<PackageReference Include="xunit" Version="2.9.3"/>
+	</ItemGroup>
+
+</Project>
