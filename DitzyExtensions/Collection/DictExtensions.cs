@@ -102,11 +102,23 @@ namespace DitzyExtensions.Collection {
 #endif
 			source.ForEach((kv, index) => action(kv.Key, kv.Value, index)).AsDict();
 
-		public static IEnumerable<T> Select<K, V, T>(this IDictionary<K, V> source, Func<K, V, T> transform) =>
+		public static IEnumerable<T> SelectEntries<K, V, T>(this IDictionary<K, V> source, Func<K, V, T> transform) =>
 			source.Select(kv => transform(kv.Key, kv.Value));
 
-		public static IEnumerable<T> Select<K, V, T>(this IDictionary<K, V> source, Func<K, V, int, T> transform) =>
+		public static IEnumerable<T> SelectEntries<K, V, T>(this IDictionary<K, V> source, Func<K, V, int, T> transform) =>
 			source.Select((kv, index) => transform(kv.Key, kv.Value, index));
+
+		public static IEnumerable<T> SelectManyEntries<K, V, T>(
+			this IDictionary<K, V> source,
+			Func<K, V, IEnumerable<T>> transform
+		) =>
+			source.SelectMany(kv => transform(kv.Key, kv.Value));
+
+		public static IEnumerable<T> SelectManyEntries<K, V, T>(
+			this IDictionary<K, V> source,
+			Func<K, V, int, IEnumerable<T>> transform
+		) =>
+			source.SelectMany((kv, index) => transform(kv.Key, kv.Value, index));
 
 		public static IDictionary<K, V> With<K, V>(this IDictionary<K, V> source, params (K, V)[] entries)
 #if N48_S2
