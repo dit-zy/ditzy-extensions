@@ -14,6 +14,31 @@ namespace DitzyExtensions.Functional {
 			return acc;
 		}
 
+		public static IEnumerable<T> Repeat<T>(this T item) => item.Repeat(-1);
+
+		public static IEnumerable<T> Repeat<T>(this T item, int count) {
+			for (var i = 0; i < count || count < 0; i++) {
+				yield return item;
+			}
+		}
+
+		public static IEnumerable<T> Iterate<T>(this T initialValue, Func<T, T> iterFunc) => initialValue.Iterate(iterFunc, -1);
+
+		public static IEnumerable<T> Iterate<T>(this T initialValue, Func<T, T> iterFunc, int count) {
+			if (count == 0) yield break;
+			
+			var value = initialValue;
+			yield return value;
+			for (var i = 1; i < count || count < 0; i++) {
+				value = iterFunc(value);
+				yield return value;
+			}
+		}
+		
+		public static IEnumerable<T> Iterate<T>(this Func<T, T> iterFunc, T initialValue) => iterFunc.Iterate(initialValue, -1);
+		
+		public static IEnumerable<T> Iterate<T>(this Func<T, T> iterFunc, T initialValue, int count) => initialValue.Iterate(iterFunc, count);
+
 #if !N48_S2
 		public static IEnumerable<int> Sequence(this Range range) {
 			for (int i = range.Start.Value; i < range.End.Value; i++) {
@@ -21,7 +46,7 @@ namespace DitzyExtensions.Functional {
 			}
 		}
 #endif
-		
+
 #if N48_S2
 		public static IEnumerable<int> SequenceTo(this int startInclusive, int endExclusive, int step = 1) {
 			if (step == 0) throw new ArgumentException("step cannot be 0.");
@@ -29,7 +54,7 @@ namespace DitzyExtensions.Functional {
 				throw new ArgumentException(
 					$"end [{endExclusive}] is not reachable from start [{startInclusive}] with step [{step}]."
 				);
-			
+
 			for (int i = startInclusive; (0 < step && i < endExclusive) || (step < 0 && endExclusive < i); i += step) {
 				yield return i;
 			}
