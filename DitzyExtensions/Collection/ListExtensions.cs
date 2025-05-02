@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using CSharpFunctionalExtensions;
@@ -115,6 +115,60 @@ namespace DitzyExtensions.Collection {
 			var list = new List<T>(source);
 			list.Sort(new Comparison<T>(comparer));
 			return list.AsList();
+		}
+
+		public static IEnumerable<IList<T>> Choose<T>(this IEnumerable<T> source, int numElementsToChoose) {
+			var ls = source.AsList();
+			var n = ls.Count;
+			var bitmask = (1 << numElementsToChoose) - 1;
+			while (bitmask < (1 << n)) {
+				yield return GetChoice(bitmask, ls);
+				var x = bitmask & -bitmask;
+				var y = bitmask + x;
+				var z = (bitmask & ~y);
+				bitmask = z / x;
+				bitmask >>= 1;
+				bitmask |= y;
+			}
+		}
+
+		private static IList<T> GetChoice<T>(int bitmask, IList<T> source) =>
+			source.Where((t, i) => bitmask.IsBitSet(i)).AsList();
+
+		public static IEnumerable<IList<T>> Permute<T>(this IEnumerable<T> source) {
+			var ls = source.ToArray();
+			var c = new int[ls.Length];
+
+			yield return Copy(ls);
+
+			var i = 1;
+			var safetyLimit = ls.Length.Factorial() * 3;
+			for (var safety = 0; i < ls.Length && safety < safetyLimit; safety++) {
+				if (c[i] < i) {
+					if (i % 2 == 0) {
+						Swap(ls, 0, i);
+					} else {
+						Swap(ls, c[i], i);
+					}
+					yield return Copy(ls);
+					c[i] += 1;
+					i = 1;
+				} else {
+					c[i] = 0;
+					i += 1;
+				}
+			}
+		}
+
+		private static void Swap<T>(T[] ls, int i, int j) {
+			var n = ls.Length - 1;
+			(ls[n - i], ls[n - j]) = (ls[n - j], ls[n - i]);
+		}
+
+		private static T[] Copy<T>(T[] ls) {
+			var copy = new T[ls.Length];
+			ls.CopyTo(copy, 0);
+			return copy;
 		}
 	}
 	
