@@ -28,12 +28,15 @@ namespace DitzyExtensions.Collection {
 
 #if N48_S2
 			public int Compare(T x, T y) {
+				if (x == null && y == null) return 0;
+				if (x == null) return -1;
+				if (y == null) return 1;
 #else
 			public int Compare(T? x, T? y) {
-#endif
 				if (x is null && y is null) return 0;
 				if (x is null) return -1;
 				if (y is null) return 1;
+#endif
 				return _comparers
 					.Select(comparison => comparison(x, y))
 					.TryFirst(result => result != 0)
