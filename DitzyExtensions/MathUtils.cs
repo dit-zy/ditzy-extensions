@@ -19,13 +19,19 @@ namespace DitzyExtensions {
 
 		public static byte GetBit(this byte n, int bitIndex) => (byte)((n >> bitIndex) & 1);
 		public static short GetBit(this short n, int bitIndex) => (short)((n >> bitIndex) & 1);
+		public static ushort GetBit(this ushort n, int bitIndex) => (ushort)((n >> bitIndex) & 1);
 		public static int GetBit(this int n, int bitIndex) => (n >> bitIndex) & 1;
-		public static long GetBit(this long n, int bitIndex) => (n >> bitIndex) & 1;
+		public static uint GetBit(this uint n, int bitIndex) => (n >> bitIndex) & 1U;
+		public static long GetBit(this long n, int bitIndex) => (n >> bitIndex) & 1L;
+		public static ulong GetBit(this ulong n, int bitIndex) => (n >> bitIndex) & 1UL;
 
 		public static bool IsBitSet(this byte n, int bitIndex) => n.GetBit(bitIndex) != 0;
 		public static bool IsBitSet(this short n, int bitIndex) => n.GetBit(bitIndex) != 0;
+		public static bool IsBitSet(this ushort n, int bitIndex) => n.GetBit(bitIndex) != 0;
 		public static bool IsBitSet(this int n, int bitIndex) => n.GetBit(bitIndex) != 0;
+		public static bool IsBitSet(this uint n, int bitIndex) => n.GetBit(bitIndex) != 0;
 		public static bool IsBitSet(this long n, int bitIndex) => n.GetBit(bitIndex) != 0;
+		public static bool IsBitSet(this ulong n, int bitIndex) => n.GetBit(bitIndex) != 0;
 
 		public static float Clamp01(this float f) => f < 0 ? 0 : (f > 1 ? 1 : f);
 
