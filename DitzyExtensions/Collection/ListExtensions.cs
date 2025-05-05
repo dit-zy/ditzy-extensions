@@ -47,6 +47,63 @@ namespace DitzyExtensions.Collection {
 		public static IEnumerable<T> Flatten<T>(this IEnumerable<IEnumerable<T>> source) =>
 			source.SelectMany(x => x);
 
+		/// <summary>
+		/// Return a subset of the <c>source</c> enumerable, only containing the first <c>numElements</c> number of elements. If <c>numElements</c> is negative, then returns up to that many elements from the end of the <c>source</c>.
+		/// </summary>
+		/// <param name="source">The source of the elements to return.</param>
+		/// <param name="numElements">The number of elements to return, starting at the beginning of <c>source</c>. If <c>numElements</c> is <c>&lt; 0</c> then returns elements up to that many from the end of <c>source</c>.</param>
+		/// <typeparam name="T"></typeparam>
+		/// <returns>The first <c>numElements</c> number of elements from <c>source</c>.</returns>
+		/// <example>
+		/// <code>
+		/// [1, 2, 3, 4].Head(2); // [1, 2]
+		/// [1, 2, 3, 4].Head(0); // [];
+		/// [1, 2, 3, 4].Head(-1); // [1, 2, 3];
+		/// [1, 2, 3, 4].Head(10); // [1, 2, 3, 4];
+		/// [1, 2, 3, 4].Head(-10); // [];
+		/// </code>
+		/// </example>
+		public static IEnumerable<T> Head<T>(this IEnumerable<T> source, int numElements = 1) {
+			if (numElements < 0) {
+				var ls = source.AsList();
+				numElements += ls.Count;
+				source = ls;
+			}
+			var i = 0;
+			foreach (var element in source) {
+				if (numElements <= i) yield break;
+				yield return element;
+				i++;
+			}
+		}
+		
+		/// <summary>
+		/// Return a subset of the <c>source</c> enumerable, only containing the last <c>numElements</c> number of elements. If <c>numElements</c> is negative, returns elements starting from that many elements from the beginning of <c>source</c>.
+		/// </summary>
+		/// <param name="source">The source of the elements to return.</param>
+		/// <param name="numElements">The number of elements to return, from the end of <c>source</c>. If <c>numElements</c> is <c>&lt; 0</c> then returns elements up to that many from the beginning of <c>source</c>.</param>
+		/// <typeparam name="T"></typeparam>
+		/// <returns>The last <c>numElements</c> number of elements from <c>source</c>.</returns>
+		/// <example>
+		/// <code>
+		/// [1, 2, 3, 4].Tail(2); // [3, 4]
+		/// [1, 2, 3, 4].Tail(0); // [];
+		/// [1, 2, 3, 4].Tail(-1); // [2, 3, 4];
+		/// [1, 2, 3, 4].Tail(10); // [1, 2, 3, 4];
+		/// [1, 2, 3, 4].Tail(-10); // [0];
+		/// </code>
+		/// </example>
+		public static IEnumerable<T> Tail<T>(this IEnumerable<T> source, int numElements = -1) {
+			var ls = source.AsList();
+			var firstIndex = -numElements;
+			if (firstIndex <= 0) {
+				firstIndex += ls.Count;
+			}
+			for (var i = firstIndex; i < ls.Count; i++) {
+				yield return ls[i];
+			}
+		}
+
 #if N48_S2
 		public static Maybe<T> MinBy<T, U>(
 			this IEnumerable<T> source,
