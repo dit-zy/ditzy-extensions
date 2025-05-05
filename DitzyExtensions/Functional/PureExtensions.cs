@@ -41,13 +41,12 @@ namespace DitzyExtensions.Functional {
 
 #if !N48_S2
 		public static IEnumerable<int> Sequence(this Range range) {
-			for (int i = range.Start.Value; i < range.End.Value; i++) {
+			for (var i = range.Start.Value; i < range.End.Value; i++) {
 				yield return i;
 			}
 		}
 #endif
 
-#if N48_S2
 		public static IEnumerable<int> SequenceTo(this int startInclusive, int endExclusive, int step = 1) {
 			if (step == 0) throw new ArgumentException("step cannot be 0.");
 			if (Math.Sign(endExclusive - startInclusive) != Math.Sign(step))
@@ -59,7 +58,6 @@ namespace DitzyExtensions.Functional {
 				yield return i;
 			}
 		}
-#endif
 
 		public static Func<Nothing> AsFunc(this Action action) =>
 			() => {
