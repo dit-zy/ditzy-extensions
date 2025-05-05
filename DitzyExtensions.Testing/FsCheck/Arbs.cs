@@ -26,7 +26,24 @@ namespace DitzyExtensions.Testing.FsCheck {
 				.Select(f => (float)f.Get)
 				.ToArbitrary();
 
+		public static Arbitrary<double> Double() =>
+			GenFor<double>()
+				.Where(d => !double.IsNaN(d) && !double.IsInfinity(d))
+				.ToArbitrary();
+
+		public static Arbitrary<byte> Byte() => ArbFor<byte>();
+
+		public static Arbitrary<short> Short() => ArbFor<short>();
+
+		public static Arbitrary<ushort> UShort() => ArbFor<ushort>();
+
+		public static Arbitrary<int> Int() => ArbFor<int>();
+
 		public static Arbitrary<uint> UInt() => ArbFor<uint>();
+
+		public static Arbitrary<long> Long() => ArbFor<long>();
+
+		public static Arbitrary<ulong> ULong() => ArbFor<ulong>();
 
 		public static Arbitrary<Vector2> Vector2() =>
 			Float()
