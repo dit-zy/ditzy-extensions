@@ -48,6 +48,35 @@ namespace DitzyExtensions.Collection {
 		public static IEnumerable<(U, T)> Flip<T, U>(this IEnumerable<(T t, U u)> source) =>
 			source.Select(entry => (entry.u, entry.t));
 
+#if N48_S2
+		public static IEnumerable<(T t, U u)> Zip<T, U>(this IEnumerable<T> first, IEnumerable<U> second) {
+			using (var eT = first.GetEnumerator())
+			using (var eU = second.GetEnumerator())
+			{
+				while (eT.MoveNext() && eU.MoveNext())
+				{
+					yield return (eT.Current, eU.Current);
+				}
+			}
+		}
+
+		public static IEnumerable<(T t, U u, V v)> Zip<T, U, V>(
+			this IEnumerable<T> first,
+			IEnumerable<U> second,
+			IEnumerable<V> third
+		) {
+			using (var eT = first.GetEnumerator())
+			using (var eU = second.GetEnumerator())
+			using (var eV = third.GetEnumerator())
+			{
+				while (eT.MoveNext() && eU.MoveNext())
+				{
+					yield return (eT.Current, eU.Current, eV.Current);
+				}
+			}
+		}
+#endif
+
 		public static (IEnumerable<T> ts, IEnumerable<U> us) Unzip<T, U>(this IEnumerable<(T t, U u)> source) =>
 			source.Unzip((ts, us) => (ts, us));
 
