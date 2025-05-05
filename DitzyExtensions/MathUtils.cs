@@ -1,4 +1,6 @@
-﻿using System.Numerics;
+﻿using System;
+using System.Drawing;
+using System.Numerics;
 
 namespace DitzyExtensions {
 	public static class MathUtils {
@@ -14,16 +16,28 @@ namespace DitzyExtensions {
 		public static Vector4 V4(Vector2 xy, Vector2 zw) => V4(xy.X, xy.Y, zw.X, zw.Y);
 		public static Vector4 V4(Vector3 xyz, float w) => V4(xyz.X, xyz.Y, xyz.Z, w);
 		public static Vector4 V4(float x, float y, float z, float w) => new Vector4(x, y, z, w);
-		
+
 		public static byte GetBit(this byte n, int bitIndex) => (byte)((n >> bitIndex) & 1);
 		public static short GetBit(this short n, int bitIndex) => (short)((n >> bitIndex) & 1);
 		public static int GetBit(this int n, int bitIndex) => (n >> bitIndex) & 1;
 		public static long GetBit(this long n, int bitIndex) => (n >> bitIndex) & 1;
-		
+
 		public static bool IsBitSet(this byte n, int bitIndex) => n.GetBit(bitIndex) != 0;
 		public static bool IsBitSet(this short n, int bitIndex) => n.GetBit(bitIndex) != 0;
 		public static bool IsBitSet(this int n, int bitIndex) => n.GetBit(bitIndex) != 0;
 		public static bool IsBitSet(this long n, int bitIndex) => n.GetBit(bitIndex) != 0;
+
+		public static float Clamp01(this float f) => f < 0 ? 0 : (f > 1 ? 1 : f);
+
+		public static double Clamp01(this double d) => d < 0 ? 0 : (d > 1 ? 1 : d);
+
+#if !N48_S2
+		public static float Frac(this float f) => Clamp01(f - MathF.Truncate(f));
+#else
+		public static float Frac(this float f) => (float)Clamp01(f - Math.Truncate(f));
+#endif
+
+		public static double Frac(this double d) => Clamp01(d - Math.Truncate(d));
 
 		public static long Factorial(this int n) {
 			var factorial = 1L;
