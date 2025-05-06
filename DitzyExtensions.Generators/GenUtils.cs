@@ -93,24 +93,35 @@ public class GenUtils {
 		return sb.ToString();
 	}
 
-	private static IEnumerable<IList<T>> CartesianProduct<T>(IEnumerable<T> source, int numOfComponents) =>
-		CartesianProductInner(source.ToArray(), new T[numOfComponents], numOfComponents, 0);
-
-	private static IEnumerable<IList<T>> CartesianProductInner<T>(T[] ls, T[] nextEntry, int numOfComponents, int i) {
-		if (numOfComponents <= i) {
-			return [Copy(nextEntry)];
+	private static IEnumerable<IList<T>> CartesianProduct<T>(IEnumerable<T> source, int numOfComponents) {
+		var ls = source.ToArray();
+		var n = (int)Math.Pow(ls.Length, numOfComponents);
+		for (var i = 0; i < n; i++) {
+			yield return ConvertToBase(i, ls.Length, numOfComponents)
+				.Select(element => ls[element])
+				.ToArray();
 		}
-		return ls.SelectMany(t => {
-				nextEntry[i] = t;
-				return CartesianProductInner(ls, nextEntry, numOfComponents, i + 1);
-			}
-		);
 	}
 
 	private static T[] Copy<T>(T[] ls) {
 		var copy = new T[ls.Length];
 		ls.CopyTo(copy, 0);
 		return copy;
+	}
+	private static IList<int> ConvertToBase(int value, int radix, int length)
+	{
+		if (radix is < 2 or > 12) throw new ArgumentException("toBase");
+		if (value < 0) throw new ArgumentException("value");
+
+		var retVal = new int[length];
+
+		for (var i = 0; i < length; i++)
+		{
+			retVal[length - 1 - i] = value % radix;
+			value /= radix;
+		}
+
+		return retVal;
 	}
 }
 
