@@ -15,7 +15,7 @@ namespace DitzyExtensions.Tests {
 		[Property]
 		public Property Prop_AsLower() => FCU.ForAll(
 			Arbs.String(),
-			s => s.AsLower().Should().BeLowerCased()
+			s => s.AsLower().Should().Be(s.ToLowerInvariant())
 		);
 
 		[Property]
