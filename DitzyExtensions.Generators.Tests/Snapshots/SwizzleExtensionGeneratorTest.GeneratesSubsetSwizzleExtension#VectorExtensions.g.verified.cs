@@ -5,53 +5,133 @@ using System.Numerics;
 namespace GenTests.Tests {
 	public static partial class VectorExtensions {
 	
+		public static Vector3 XXX(this Vector4 source) =>
+			new Vector3(source.X, source.X, source.X);
+		public static Vector3 XXY(this Vector4 source) =>
+			new Vector3(source.X, source.X, source.Y);
+		public static Vector3 XXZ(this Vector4 source) =>
+			new Vector3(source.X, source.X, source.Z);
+		public static Vector3 XXW(this Vector4 source) =>
+			new Vector3(source.X, source.X, source.W);
+		public static Vector3 XYX(this Vector4 source) =>
+			new Vector3(source.X, source.Y, source.X);
+		public static Vector3 XYY(this Vector4 source) =>
+			new Vector3(source.X, source.Y, source.Y);
 		public static Vector3 XYZ(this Vector4 source) =>
 			new Vector3(source.X, source.Y, source.Z);
 		public static Vector3 XYW(this Vector4 source) =>
 			new Vector3(source.X, source.Y, source.W);
+		public static Vector3 XZX(this Vector4 source) =>
+			new Vector3(source.X, source.Z, source.X);
 		public static Vector3 XZY(this Vector4 source) =>
 			new Vector3(source.X, source.Z, source.Y);
+		public static Vector3 XZZ(this Vector4 source) =>
+			new Vector3(source.X, source.Z, source.Z);
 		public static Vector3 XZW(this Vector4 source) =>
 			new Vector3(source.X, source.Z, source.W);
+		public static Vector3 XWX(this Vector4 source) =>
+			new Vector3(source.X, source.W, source.X);
 		public static Vector3 XWY(this Vector4 source) =>
 			new Vector3(source.X, source.W, source.Y);
 		public static Vector3 XWZ(this Vector4 source) =>
 			new Vector3(source.X, source.W, source.Z);
+		public static Vector3 XWW(this Vector4 source) =>
+			new Vector3(source.X, source.W, source.W);
+		public static Vector3 YXX(this Vector4 source) =>
+			new Vector3(source.Y, source.X, source.X);
+		public static Vector3 YXY(this Vector4 source) =>
+			new Vector3(source.Y, source.X, source.Y);
 		public static Vector3 YXZ(this Vector4 source) =>
 			new Vector3(source.Y, source.X, source.Z);
 		public static Vector3 YXW(this Vector4 source) =>
 			new Vector3(source.Y, source.X, source.W);
+		public static Vector3 YYX(this Vector4 source) =>
+			new Vector3(source.Y, source.Y, source.X);
+		public static Vector3 YYY(this Vector4 source) =>
+			new Vector3(source.Y, source.Y, source.Y);
+		public static Vector3 YYZ(this Vector4 source) =>
+			new Vector3(source.Y, source.Y, source.Z);
+		public static Vector3 YYW(this Vector4 source) =>
+			new Vector3(source.Y, source.Y, source.W);
 		public static Vector3 YZX(this Vector4 source) =>
 			new Vector3(source.Y, source.Z, source.X);
+		public static Vector3 YZY(this Vector4 source) =>
+			new Vector3(source.Y, source.Z, source.Y);
+		public static Vector3 YZZ(this Vector4 source) =>
+			new Vector3(source.Y, source.Z, source.Z);
 		public static Vector3 YZW(this Vector4 source) =>
 			new Vector3(source.Y, source.Z, source.W);
 		public static Vector3 YWX(this Vector4 source) =>
 			new Vector3(source.Y, source.W, source.X);
+		public static Vector3 YWY(this Vector4 source) =>
+			new Vector3(source.Y, source.W, source.Y);
 		public static Vector3 YWZ(this Vector4 source) =>
 			new Vector3(source.Y, source.W, source.Z);
+		public static Vector3 YWW(this Vector4 source) =>
+			new Vector3(source.Y, source.W, source.W);
+		public static Vector3 ZXX(this Vector4 source) =>
+			new Vector3(source.Z, source.X, source.X);
 		public static Vector3 ZXY(this Vector4 source) =>
 			new Vector3(source.Z, source.X, source.Y);
+		public static Vector3 ZXZ(this Vector4 source) =>
+			new Vector3(source.Z, source.X, source.Z);
 		public static Vector3 ZXW(this Vector4 source) =>
 			new Vector3(source.Z, source.X, source.W);
 		public static Vector3 ZYX(this Vector4 source) =>
 			new Vector3(source.Z, source.Y, source.X);
+		public static Vector3 ZYY(this Vector4 source) =>
+			new Vector3(source.Z, source.Y, source.Y);
+		public static Vector3 ZYZ(this Vector4 source) =>
+			new Vector3(source.Z, source.Y, source.Z);
 		public static Vector3 ZYW(this Vector4 source) =>
 			new Vector3(source.Z, source.Y, source.W);
+		public static Vector3 ZZX(this Vector4 source) =>
+			new Vector3(source.Z, source.Z, source.X);
+		public static Vector3 ZZY(this Vector4 source) =>
+			new Vector3(source.Z, source.Z, source.Y);
+		public static Vector3 ZZZ(this Vector4 source) =>
+			new Vector3(source.Z, source.Z, source.Z);
+		public static Vector3 ZZW(this Vector4 source) =>
+			new Vector3(source.Z, source.Z, source.W);
 		public static Vector3 ZWX(this Vector4 source) =>
 			new Vector3(source.Z, source.W, source.X);
 		public static Vector3 ZWY(this Vector4 source) =>
 			new Vector3(source.Z, source.W, source.Y);
+		public static Vector3 ZWZ(this Vector4 source) =>
+			new Vector3(source.Z, source.W, source.Z);
+		public static Vector3 ZWW(this Vector4 source) =>
+			new Vector3(source.Z, source.W, source.W);
+		public static Vector3 WXX(this Vector4 source) =>
+			new Vector3(source.W, source.X, source.X);
 		public static Vector3 WXY(this Vector4 source) =>
 			new Vector3(source.W, source.X, source.Y);
 		public static Vector3 WXZ(this Vector4 source) =>
 			new Vector3(source.W, source.X, source.Z);
+		public static Vector3 WXW(this Vector4 source) =>
+			new Vector3(source.W, source.X, source.W);
 		public static Vector3 WYX(this Vector4 source) =>
 			new Vector3(source.W, source.Y, source.X);
+		public static Vector3 WYY(this Vector4 source) =>
+			new Vector3(source.W, source.Y, source.Y);
 		public static Vector3 WYZ(this Vector4 source) =>
 			new Vector3(source.W, source.Y, source.Z);
+		public static Vector3 WYW(this Vector4 source) =>
+			new Vector3(source.W, source.Y, source.W);
 		public static Vector3 WZX(this Vector4 source) =>
 			new Vector3(source.W, source.Z, source.X);
 		public static Vector3 WZY(this Vector4 source) =>
 			new Vector3(source.W, source.Z, source.Y);
+		public static Vector3 WZZ(this Vector4 source) =>
+			new Vector3(source.W, source.Z, source.Z);
+		public static Vector3 WZW(this Vector4 source) =>
+			new Vector3(source.W, source.Z, source.W);
+		public static Vector3 WWX(this Vector4 source) =>
+			new Vector3(source.W, source.W, source.X);
+		public static Vector3 WWY(this Vector4 source) =>
+			new Vector3(source.W, source.W, source.Y);
+		public static Vector3 WWZ(this Vector4 source) =>
+			new Vector3(source.W, source.W, source.Z);
+		public static Vector3 WWW(this Vector4 source) =>
+			new Vector3(source.W, source.W, source.W);
 	}
 }

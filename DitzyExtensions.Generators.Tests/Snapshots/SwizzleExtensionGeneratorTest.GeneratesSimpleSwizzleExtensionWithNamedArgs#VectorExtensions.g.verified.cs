@@ -5,53 +5,517 @@ using System.Numerics;
 namespace GenTests.Tests {
 	public static partial class VectorExtensions {
 	
+		public static Vector4 XXXX(this Vector4 source) =>
+			new Vector4(source.X, source.X, source.X, source.X);
+		public static Vector4 XXXY(this Vector4 source) =>
+			new Vector4(source.X, source.X, source.X, source.Y);
+		public static Vector4 XXXZ(this Vector4 source) =>
+			new Vector4(source.X, source.X, source.X, source.Z);
+		public static Vector4 XXXW(this Vector4 source) =>
+			new Vector4(source.X, source.X, source.X, source.W);
+		public static Vector4 XXYX(this Vector4 source) =>
+			new Vector4(source.X, source.X, source.Y, source.X);
+		public static Vector4 XXYY(this Vector4 source) =>
+			new Vector4(source.X, source.X, source.Y, source.Y);
+		public static Vector4 XXYZ(this Vector4 source) =>
+			new Vector4(source.X, source.X, source.Y, source.Z);
+		public static Vector4 XXYW(this Vector4 source) =>
+			new Vector4(source.X, source.X, source.Y, source.W);
+		public static Vector4 XXZX(this Vector4 source) =>
+			new Vector4(source.X, source.X, source.Z, source.X);
+		public static Vector4 XXZY(this Vector4 source) =>
+			new Vector4(source.X, source.X, source.Z, source.Y);
+		public static Vector4 XXZZ(this Vector4 source) =>
+			new Vector4(source.X, source.X, source.Z, source.Z);
+		public static Vector4 XXZW(this Vector4 source) =>
+			new Vector4(source.X, source.X, source.Z, source.W);
+		public static Vector4 XXWX(this Vector4 source) =>
+			new Vector4(source.X, source.X, source.W, source.X);
+		public static Vector4 XXWY(this Vector4 source) =>
+			new Vector4(source.X, source.X, source.W, source.Y);
+		public static Vector4 XXWZ(this Vector4 source) =>
+			new Vector4(source.X, source.X, source.W, source.Z);
+		public static Vector4 XXWW(this Vector4 source) =>
+			new Vector4(source.X, source.X, source.W, source.W);
+		public static Vector4 XYXX(this Vector4 source) =>
+			new Vector4(source.X, source.Y, source.X, source.X);
+		public static Vector4 XYXY(this Vector4 source) =>
+			new Vector4(source.X, source.Y, source.X, source.Y);
+		public static Vector4 XYXZ(this Vector4 source) =>
+			new Vector4(source.X, source.Y, source.X, source.Z);
+		public static Vector4 XYXW(this Vector4 source) =>
+			new Vector4(source.X, source.Y, source.X, source.W);
+		public static Vector4 XYYX(this Vector4 source) =>
+			new Vector4(source.X, source.Y, source.Y, source.X);
+		public static Vector4 XYYY(this Vector4 source) =>
+			new Vector4(source.X, source.Y, source.Y, source.Y);
+		public static Vector4 XYYZ(this Vector4 source) =>
+			new Vector4(source.X, source.Y, source.Y, source.Z);
+		public static Vector4 XYYW(this Vector4 source) =>
+			new Vector4(source.X, source.Y, source.Y, source.W);
+		public static Vector4 XYZX(this Vector4 source) =>
+			new Vector4(source.X, source.Y, source.Z, source.X);
+		public static Vector4 XYZY(this Vector4 source) =>
+			new Vector4(source.X, source.Y, source.Z, source.Y);
+		public static Vector4 XYZZ(this Vector4 source) =>
+			new Vector4(source.X, source.Y, source.Z, source.Z);
 		public static Vector4 XYZW(this Vector4 source) =>
 			new Vector4(source.X, source.Y, source.Z, source.W);
+		public static Vector4 XYWX(this Vector4 source) =>
+			new Vector4(source.X, source.Y, source.W, source.X);
+		public static Vector4 XYWY(this Vector4 source) =>
+			new Vector4(source.X, source.Y, source.W, source.Y);
 		public static Vector4 XYWZ(this Vector4 source) =>
 			new Vector4(source.X, source.Y, source.W, source.Z);
+		public static Vector4 XYWW(this Vector4 source) =>
+			new Vector4(source.X, source.Y, source.W, source.W);
+		public static Vector4 XZXX(this Vector4 source) =>
+			new Vector4(source.X, source.Z, source.X, source.X);
+		public static Vector4 XZXY(this Vector4 source) =>
+			new Vector4(source.X, source.Z, source.X, source.Y);
+		public static Vector4 XZXZ(this Vector4 source) =>
+			new Vector4(source.X, source.Z, source.X, source.Z);
+		public static Vector4 XZXW(this Vector4 source) =>
+			new Vector4(source.X, source.Z, source.X, source.W);
+		public static Vector4 XZYX(this Vector4 source) =>
+			new Vector4(source.X, source.Z, source.Y, source.X);
+		public static Vector4 XZYY(this Vector4 source) =>
+			new Vector4(source.X, source.Z, source.Y, source.Y);
+		public static Vector4 XZYZ(this Vector4 source) =>
+			new Vector4(source.X, source.Z, source.Y, source.Z);
 		public static Vector4 XZYW(this Vector4 source) =>
 			new Vector4(source.X, source.Z, source.Y, source.W);
+		public static Vector4 XZZX(this Vector4 source) =>
+			new Vector4(source.X, source.Z, source.Z, source.X);
+		public static Vector4 XZZY(this Vector4 source) =>
+			new Vector4(source.X, source.Z, source.Z, source.Y);
+		public static Vector4 XZZZ(this Vector4 source) =>
+			new Vector4(source.X, source.Z, source.Z, source.Z);
+		public static Vector4 XZZW(this Vector4 source) =>
+			new Vector4(source.X, source.Z, source.Z, source.W);
+		public static Vector4 XZWX(this Vector4 source) =>
+			new Vector4(source.X, source.Z, source.W, source.X);
 		public static Vector4 XZWY(this Vector4 source) =>
 			new Vector4(source.X, source.Z, source.W, source.Y);
+		public static Vector4 XZWZ(this Vector4 source) =>
+			new Vector4(source.X, source.Z, source.W, source.Z);
+		public static Vector4 XZWW(this Vector4 source) =>
+			new Vector4(source.X, source.Z, source.W, source.W);
+		public static Vector4 XWXX(this Vector4 source) =>
+			new Vector4(source.X, source.W, source.X, source.X);
+		public static Vector4 XWXY(this Vector4 source) =>
+			new Vector4(source.X, source.W, source.X, source.Y);
+		public static Vector4 XWXZ(this Vector4 source) =>
+			new Vector4(source.X, source.W, source.X, source.Z);
+		public static Vector4 XWXW(this Vector4 source) =>
+			new Vector4(source.X, source.W, source.X, source.W);
+		public static Vector4 XWYX(this Vector4 source) =>
+			new Vector4(source.X, source.W, source.Y, source.X);
+		public static Vector4 XWYY(this Vector4 source) =>
+			new Vector4(source.X, source.W, source.Y, source.Y);
 		public static Vector4 XWYZ(this Vector4 source) =>
 			new Vector4(source.X, source.W, source.Y, source.Z);
+		public static Vector4 XWYW(this Vector4 source) =>
+			new Vector4(source.X, source.W, source.Y, source.W);
+		public static Vector4 XWZX(this Vector4 source) =>
+			new Vector4(source.X, source.W, source.Z, source.X);
 		public static Vector4 XWZY(this Vector4 source) =>
 			new Vector4(source.X, source.W, source.Z, source.Y);
+		public static Vector4 XWZZ(this Vector4 source) =>
+			new Vector4(source.X, source.W, source.Z, source.Z);
+		public static Vector4 XWZW(this Vector4 source) =>
+			new Vector4(source.X, source.W, source.Z, source.W);
+		public static Vector4 XWWX(this Vector4 source) =>
+			new Vector4(source.X, source.W, source.W, source.X);
+		public static Vector4 XWWY(this Vector4 source) =>
+			new Vector4(source.X, source.W, source.W, source.Y);
+		public static Vector4 XWWZ(this Vector4 source) =>
+			new Vector4(source.X, source.W, source.W, source.Z);
+		public static Vector4 XWWW(this Vector4 source) =>
+			new Vector4(source.X, source.W, source.W, source.W);
+		public static Vector4 YXXX(this Vector4 source) =>
+			new Vector4(source.Y, source.X, source.X, source.X);
+		public static Vector4 YXXY(this Vector4 source) =>
+			new Vector4(source.Y, source.X, source.X, source.Y);
+		public static Vector4 YXXZ(this Vector4 source) =>
+			new Vector4(source.Y, source.X, source.X, source.Z);
+		public static Vector4 YXXW(this Vector4 source) =>
+			new Vector4(source.Y, source.X, source.X, source.W);
+		public static Vector4 YXYX(this Vector4 source) =>
+			new Vector4(source.Y, source.X, source.Y, source.X);
+		public static Vector4 YXYY(this Vector4 source) =>
+			new Vector4(source.Y, source.X, source.Y, source.Y);
+		public static Vector4 YXYZ(this Vector4 source) =>
+			new Vector4(source.Y, source.X, source.Y, source.Z);
+		public static Vector4 YXYW(this Vector4 source) =>
+			new Vector4(source.Y, source.X, source.Y, source.W);
+		public static Vector4 YXZX(this Vector4 source) =>
+			new Vector4(source.Y, source.X, source.Z, source.X);
+		public static Vector4 YXZY(this Vector4 source) =>
+			new Vector4(source.Y, source.X, source.Z, source.Y);
+		public static Vector4 YXZZ(this Vector4 source) =>
+			new Vector4(source.Y, source.X, source.Z, source.Z);
 		public static Vector4 YXZW(this Vector4 source) =>
 			new Vector4(source.Y, source.X, source.Z, source.W);
+		public static Vector4 YXWX(this Vector4 source) =>
+			new Vector4(source.Y, source.X, source.W, source.X);
+		public static Vector4 YXWY(this Vector4 source) =>
+			new Vector4(source.Y, source.X, source.W, source.Y);
 		public static Vector4 YXWZ(this Vector4 source) =>
 			new Vector4(source.Y, source.X, source.W, source.Z);
+		public static Vector4 YXWW(this Vector4 source) =>
+			new Vector4(source.Y, source.X, source.W, source.W);
+		public static Vector4 YYXX(this Vector4 source) =>
+			new Vector4(source.Y, source.Y, source.X, source.X);
+		public static Vector4 YYXY(this Vector4 source) =>
+			new Vector4(source.Y, source.Y, source.X, source.Y);
+		public static Vector4 YYXZ(this Vector4 source) =>
+			new Vector4(source.Y, source.Y, source.X, source.Z);
+		public static Vector4 YYXW(this Vector4 source) =>
+			new Vector4(source.Y, source.Y, source.X, source.W);
+		public static Vector4 YYYX(this Vector4 source) =>
+			new Vector4(source.Y, source.Y, source.Y, source.X);
+		public static Vector4 YYYY(this Vector4 source) =>
+			new Vector4(source.Y, source.Y, source.Y, source.Y);
+		public static Vector4 YYYZ(this Vector4 source) =>
+			new Vector4(source.Y, source.Y, source.Y, source.Z);
+		public static Vector4 YYYW(this Vector4 source) =>
+			new Vector4(source.Y, source.Y, source.Y, source.W);
+		public static Vector4 YYZX(this Vector4 source) =>
+			new Vector4(source.Y, source.Y, source.Z, source.X);
+		public static Vector4 YYZY(this Vector4 source) =>
+			new Vector4(source.Y, source.Y, source.Z, source.Y);
+		public static Vector4 YYZZ(this Vector4 source) =>
+			new Vector4(source.Y, source.Y, source.Z, source.Z);
+		public static Vector4 YYZW(this Vector4 source) =>
+			new Vector4(source.Y, source.Y, source.Z, source.W);
+		public static Vector4 YYWX(this Vector4 source) =>
+			new Vector4(source.Y, source.Y, source.W, source.X);
+		public static Vector4 YYWY(this Vector4 source) =>
+			new Vector4(source.Y, source.Y, source.W, source.Y);
+		public static Vector4 YYWZ(this Vector4 source) =>
+			new Vector4(source.Y, source.Y, source.W, source.Z);
+		public static Vector4 YYWW(this Vector4 source) =>
+			new Vector4(source.Y, source.Y, source.W, source.W);
+		public static Vector4 YZXX(this Vector4 source) =>
+			new Vector4(source.Y, source.Z, source.X, source.X);
+		public static Vector4 YZXY(this Vector4 source) =>
+			new Vector4(source.Y, source.Z, source.X, source.Y);
+		public static Vector4 YZXZ(this Vector4 source) =>
+			new Vector4(source.Y, source.Z, source.X, source.Z);
 		public static Vector4 YZXW(this Vector4 source) =>
 			new Vector4(source.Y, source.Z, source.X, source.W);
+		public static Vector4 YZYX(this Vector4 source) =>
+			new Vector4(source.Y, source.Z, source.Y, source.X);
+		public static Vector4 YZYY(this Vector4 source) =>
+			new Vector4(source.Y, source.Z, source.Y, source.Y);
+		public static Vector4 YZYZ(this Vector4 source) =>
+			new Vector4(source.Y, source.Z, source.Y, source.Z);
+		public static Vector4 YZYW(this Vector4 source) =>
+			new Vector4(source.Y, source.Z, source.Y, source.W);
+		public static Vector4 YZZX(this Vector4 source) =>
+			new Vector4(source.Y, source.Z, source.Z, source.X);
+		public static Vector4 YZZY(this Vector4 source) =>
+			new Vector4(source.Y, source.Z, source.Z, source.Y);
+		public static Vector4 YZZZ(this Vector4 source) =>
+			new Vector4(source.Y, source.Z, source.Z, source.Z);
+		public static Vector4 YZZW(this Vector4 source) =>
+			new Vector4(source.Y, source.Z, source.Z, source.W);
 		public static Vector4 YZWX(this Vector4 source) =>
 			new Vector4(source.Y, source.Z, source.W, source.X);
+		public static Vector4 YZWY(this Vector4 source) =>
+			new Vector4(source.Y, source.Z, source.W, source.Y);
+		public static Vector4 YZWZ(this Vector4 source) =>
+			new Vector4(source.Y, source.Z, source.W, source.Z);
+		public static Vector4 YZWW(this Vector4 source) =>
+			new Vector4(source.Y, source.Z, source.W, source.W);
+		public static Vector4 YWXX(this Vector4 source) =>
+			new Vector4(source.Y, source.W, source.X, source.X);
+		public static Vector4 YWXY(this Vector4 source) =>
+			new Vector4(source.Y, source.W, source.X, source.Y);
 		public static Vector4 YWXZ(this Vector4 source) =>
 			new Vector4(source.Y, source.W, source.X, source.Z);
+		public static Vector4 YWXW(this Vector4 source) =>
+			new Vector4(source.Y, source.W, source.X, source.W);
+		public static Vector4 YWYX(this Vector4 source) =>
+			new Vector4(source.Y, source.W, source.Y, source.X);
+		public static Vector4 YWYY(this Vector4 source) =>
+			new Vector4(source.Y, source.W, source.Y, source.Y);
+		public static Vector4 YWYZ(this Vector4 source) =>
+			new Vector4(source.Y, source.W, source.Y, source.Z);
+		public static Vector4 YWYW(this Vector4 source) =>
+			new Vector4(source.Y, source.W, source.Y, source.W);
 		public static Vector4 YWZX(this Vector4 source) =>
 			new Vector4(source.Y, source.W, source.Z, source.X);
+		public static Vector4 YWZY(this Vector4 source) =>
+			new Vector4(source.Y, source.W, source.Z, source.Y);
+		public static Vector4 YWZZ(this Vector4 source) =>
+			new Vector4(source.Y, source.W, source.Z, source.Z);
+		public static Vector4 YWZW(this Vector4 source) =>
+			new Vector4(source.Y, source.W, source.Z, source.W);
+		public static Vector4 YWWX(this Vector4 source) =>
+			new Vector4(source.Y, source.W, source.W, source.X);
+		public static Vector4 YWWY(this Vector4 source) =>
+			new Vector4(source.Y, source.W, source.W, source.Y);
+		public static Vector4 YWWZ(this Vector4 source) =>
+			new Vector4(source.Y, source.W, source.W, source.Z);
+		public static Vector4 YWWW(this Vector4 source) =>
+			new Vector4(source.Y, source.W, source.W, source.W);
+		public static Vector4 ZXXX(this Vector4 source) =>
+			new Vector4(source.Z, source.X, source.X, source.X);
+		public static Vector4 ZXXY(this Vector4 source) =>
+			new Vector4(source.Z, source.X, source.X, source.Y);
+		public static Vector4 ZXXZ(this Vector4 source) =>
+			new Vector4(source.Z, source.X, source.X, source.Z);
+		public static Vector4 ZXXW(this Vector4 source) =>
+			new Vector4(source.Z, source.X, source.X, source.W);
+		public static Vector4 ZXYX(this Vector4 source) =>
+			new Vector4(source.Z, source.X, source.Y, source.X);
+		public static Vector4 ZXYY(this Vector4 source) =>
+			new Vector4(source.Z, source.X, source.Y, source.Y);
+		public static Vector4 ZXYZ(this Vector4 source) =>
+			new Vector4(source.Z, source.X, source.Y, source.Z);
 		public static Vector4 ZXYW(this Vector4 source) =>
 			new Vector4(source.Z, source.X, source.Y, source.W);
+		public static Vector4 ZXZX(this Vector4 source) =>
+			new Vector4(source.Z, source.X, source.Z, source.X);
+		public static Vector4 ZXZY(this Vector4 source) =>
+			new Vector4(source.Z, source.X, source.Z, source.Y);
+		public static Vector4 ZXZZ(this Vector4 source) =>
+			new Vector4(source.Z, source.X, source.Z, source.Z);
+		public static Vector4 ZXZW(this Vector4 source) =>
+			new Vector4(source.Z, source.X, source.Z, source.W);
+		public static Vector4 ZXWX(this Vector4 source) =>
+			new Vector4(source.Z, source.X, source.W, source.X);
 		public static Vector4 ZXWY(this Vector4 source) =>
 			new Vector4(source.Z, source.X, source.W, source.Y);
+		public static Vector4 ZXWZ(this Vector4 source) =>
+			new Vector4(source.Z, source.X, source.W, source.Z);
+		public static Vector4 ZXWW(this Vector4 source) =>
+			new Vector4(source.Z, source.X, source.W, source.W);
+		public static Vector4 ZYXX(this Vector4 source) =>
+			new Vector4(source.Z, source.Y, source.X, source.X);
+		public static Vector4 ZYXY(this Vector4 source) =>
+			new Vector4(source.Z, source.Y, source.X, source.Y);
+		public static Vector4 ZYXZ(this Vector4 source) =>
+			new Vector4(source.Z, source.Y, source.X, source.Z);
 		public static Vector4 ZYXW(this Vector4 source) =>
 			new Vector4(source.Z, source.Y, source.X, source.W);
+		public static Vector4 ZYYX(this Vector4 source) =>
+			new Vector4(source.Z, source.Y, source.Y, source.X);
+		public static Vector4 ZYYY(this Vector4 source) =>
+			new Vector4(source.Z, source.Y, source.Y, source.Y);
+		public static Vector4 ZYYZ(this Vector4 source) =>
+			new Vector4(source.Z, source.Y, source.Y, source.Z);
+		public static Vector4 ZYYW(this Vector4 source) =>
+			new Vector4(source.Z, source.Y, source.Y, source.W);
+		public static Vector4 ZYZX(this Vector4 source) =>
+			new Vector4(source.Z, source.Y, source.Z, source.X);
+		public static Vector4 ZYZY(this Vector4 source) =>
+			new Vector4(source.Z, source.Y, source.Z, source.Y);
+		public static Vector4 ZYZZ(this Vector4 source) =>
+			new Vector4(source.Z, source.Y, source.Z, source.Z);
+		public static Vector4 ZYZW(this Vector4 source) =>
+			new Vector4(source.Z, source.Y, source.Z, source.W);
 		public static Vector4 ZYWX(this Vector4 source) =>
 			new Vector4(source.Z, source.Y, source.W, source.X);
+		public static Vector4 ZYWY(this Vector4 source) =>
+			new Vector4(source.Z, source.Y, source.W, source.Y);
+		public static Vector4 ZYWZ(this Vector4 source) =>
+			new Vector4(source.Z, source.Y, source.W, source.Z);
+		public static Vector4 ZYWW(this Vector4 source) =>
+			new Vector4(source.Z, source.Y, source.W, source.W);
+		public static Vector4 ZZXX(this Vector4 source) =>
+			new Vector4(source.Z, source.Z, source.X, source.X);
+		public static Vector4 ZZXY(this Vector4 source) =>
+			new Vector4(source.Z, source.Z, source.X, source.Y);
+		public static Vector4 ZZXZ(this Vector4 source) =>
+			new Vector4(source.Z, source.Z, source.X, source.Z);
+		public static Vector4 ZZXW(this Vector4 source) =>
+			new Vector4(source.Z, source.Z, source.X, source.W);
+		public static Vector4 ZZYX(this Vector4 source) =>
+			new Vector4(source.Z, source.Z, source.Y, source.X);
+		public static Vector4 ZZYY(this Vector4 source) =>
+			new Vector4(source.Z, source.Z, source.Y, source.Y);
+		public static Vector4 ZZYZ(this Vector4 source) =>
+			new Vector4(source.Z, source.Z, source.Y, source.Z);
+		public static Vector4 ZZYW(this Vector4 source) =>
+			new Vector4(source.Z, source.Z, source.Y, source.W);
+		public static Vector4 ZZZX(this Vector4 source) =>
+			new Vector4(source.Z, source.Z, source.Z, source.X);
+		public static Vector4 ZZZY(this Vector4 source) =>
+			new Vector4(source.Z, source.Z, source.Z, source.Y);
+		public static Vector4 ZZZZ(this Vector4 source) =>
+			new Vector4(source.Z, source.Z, source.Z, source.Z);
+		public static Vector4 ZZZW(this Vector4 source) =>
+			new Vector4(source.Z, source.Z, source.Z, source.W);
+		public static Vector4 ZZWX(this Vector4 source) =>
+			new Vector4(source.Z, source.Z, source.W, source.X);
+		public static Vector4 ZZWY(this Vector4 source) =>
+			new Vector4(source.Z, source.Z, source.W, source.Y);
+		public static Vector4 ZZWZ(this Vector4 source) =>
+			new Vector4(source.Z, source.Z, source.W, source.Z);
+		public static Vector4 ZZWW(this Vector4 source) =>
+			new Vector4(source.Z, source.Z, source.W, source.W);
+		public static Vector4 ZWXX(this Vector4 source) =>
+			new Vector4(source.Z, source.W, source.X, source.X);
 		public static Vector4 ZWXY(this Vector4 source) =>
 			new Vector4(source.Z, source.W, source.X, source.Y);
+		public static Vector4 ZWXZ(this Vector4 source) =>
+			new Vector4(source.Z, source.W, source.X, source.Z);
+		public static Vector4 ZWXW(this Vector4 source) =>
+			new Vector4(source.Z, source.W, source.X, source.W);
 		public static Vector4 ZWYX(this Vector4 source) =>
 			new Vector4(source.Z, source.W, source.Y, source.X);
+		public static Vector4 ZWYY(this Vector4 source) =>
+			new Vector4(source.Z, source.W, source.Y, source.Y);
+		public static Vector4 ZWYZ(this Vector4 source) =>
+			new Vector4(source.Z, source.W, source.Y, source.Z);
+		public static Vector4 ZWYW(this Vector4 source) =>
+			new Vector4(source.Z, source.W, source.Y, source.W);
+		public static Vector4 ZWZX(this Vector4 source) =>
+			new Vector4(source.Z, source.W, source.Z, source.X);
+		public static Vector4 ZWZY(this Vector4 source) =>
+			new Vector4(source.Z, source.W, source.Z, source.Y);
+		public static Vector4 ZWZZ(this Vector4 source) =>
+			new Vector4(source.Z, source.W, source.Z, source.Z);
+		public static Vector4 ZWZW(this Vector4 source) =>
+			new Vector4(source.Z, source.W, source.Z, source.W);
+		public static Vector4 ZWWX(this Vector4 source) =>
+			new Vector4(source.Z, source.W, source.W, source.X);
+		public static Vector4 ZWWY(this Vector4 source) =>
+			new Vector4(source.Z, source.W, source.W, source.Y);
+		public static Vector4 ZWWZ(this Vector4 source) =>
+			new Vector4(source.Z, source.W, source.W, source.Z);
+		public static Vector4 ZWWW(this Vector4 source) =>
+			new Vector4(source.Z, source.W, source.W, source.W);
+		public static Vector4 WXXX(this Vector4 source) =>
+			new Vector4(source.W, source.X, source.X, source.X);
+		public static Vector4 WXXY(this Vector4 source) =>
+			new Vector4(source.W, source.X, source.X, source.Y);
+		public static Vector4 WXXZ(this Vector4 source) =>
+			new Vector4(source.W, source.X, source.X, source.Z);
+		public static Vector4 WXXW(this Vector4 source) =>
+			new Vector4(source.W, source.X, source.X, source.W);
+		public static Vector4 WXYX(this Vector4 source) =>
+			new Vector4(source.W, source.X, source.Y, source.X);
+		public static Vector4 WXYY(this Vector4 source) =>
+			new Vector4(source.W, source.X, source.Y, source.Y);
 		public static Vector4 WXYZ(this Vector4 source) =>
 			new Vector4(source.W, source.X, source.Y, source.Z);
+		public static Vector4 WXYW(this Vector4 source) =>
+			new Vector4(source.W, source.X, source.Y, source.W);
+		public static Vector4 WXZX(this Vector4 source) =>
+			new Vector4(source.W, source.X, source.Z, source.X);
 		public static Vector4 WXZY(this Vector4 source) =>
 			new Vector4(source.W, source.X, source.Z, source.Y);
+		public static Vector4 WXZZ(this Vector4 source) =>
+			new Vector4(source.W, source.X, source.Z, source.Z);
+		public static Vector4 WXZW(this Vector4 source) =>
+			new Vector4(source.W, source.X, source.Z, source.W);
+		public static Vector4 WXWX(this Vector4 source) =>
+			new Vector4(source.W, source.X, source.W, source.X);
+		public static Vector4 WXWY(this Vector4 source) =>
+			new Vector4(source.W, source.X, source.W, source.Y);
+		public static Vector4 WXWZ(this Vector4 source) =>
+			new Vector4(source.W, source.X, source.W, source.Z);
+		public static Vector4 WXWW(this Vector4 source) =>
+			new Vector4(source.W, source.X, source.W, source.W);
+		public static Vector4 WYXX(this Vector4 source) =>
+			new Vector4(source.W, source.Y, source.X, source.X);
+		public static Vector4 WYXY(this Vector4 source) =>
+			new Vector4(source.W, source.Y, source.X, source.Y);
 		public static Vector4 WYXZ(this Vector4 source) =>
 			new Vector4(source.W, source.Y, source.X, source.Z);
+		public static Vector4 WYXW(this Vector4 source) =>
+			new Vector4(source.W, source.Y, source.X, source.W);
+		public static Vector4 WYYX(this Vector4 source) =>
+			new Vector4(source.W, source.Y, source.Y, source.X);
+		public static Vector4 WYYY(this Vector4 source) =>
+			new Vector4(source.W, source.Y, source.Y, source.Y);
+		public static Vector4 WYYZ(this Vector4 source) =>
+			new Vector4(source.W, source.Y, source.Y, source.Z);
+		public static Vector4 WYYW(this Vector4 source) =>
+			new Vector4(source.W, source.Y, source.Y, source.W);
 		public static Vector4 WYZX(this Vector4 source) =>
 			new Vector4(source.W, source.Y, source.Z, source.X);
+		public static Vector4 WYZY(this Vector4 source) =>
+			new Vector4(source.W, source.Y, source.Z, source.Y);
+		public static Vector4 WYZZ(this Vector4 source) =>
+			new Vector4(source.W, source.Y, source.Z, source.Z);
+		public static Vector4 WYZW(this Vector4 source) =>
+			new Vector4(source.W, source.Y, source.Z, source.W);
+		public static Vector4 WYWX(this Vector4 source) =>
+			new Vector4(source.W, source.Y, source.W, source.X);
+		public static Vector4 WYWY(this Vector4 source) =>
+			new Vector4(source.W, source.Y, source.W, source.Y);
+		public static Vector4 WYWZ(this Vector4 source) =>
+			new Vector4(source.W, source.Y, source.W, source.Z);
+		public static Vector4 WYWW(this Vector4 source) =>
+			new Vector4(source.W, source.Y, source.W, source.W);
+		public static Vector4 WZXX(this Vector4 source) =>
+			new Vector4(source.W, source.Z, source.X, source.X);
 		public static Vector4 WZXY(this Vector4 source) =>
 			new Vector4(source.W, source.Z, source.X, source.Y);
+		public static Vector4 WZXZ(this Vector4 source) =>
+			new Vector4(source.W, source.Z, source.X, source.Z);
+		public static Vector4 WZXW(this Vector4 source) =>
+			new Vector4(source.W, source.Z, source.X, source.W);
 		public static Vector4 WZYX(this Vector4 source) =>
 			new Vector4(source.W, source.Z, source.Y, source.X);
+		public static Vector4 WZYY(this Vector4 source) =>
+			new Vector4(source.W, source.Z, source.Y, source.Y);
+		public static Vector4 WZYZ(this Vector4 source) =>
+			new Vector4(source.W, source.Z, source.Y, source.Z);
+		public static Vector4 WZYW(this Vector4 source) =>
+			new Vector4(source.W, source.Z, source.Y, source.W);
+		public static Vector4 WZZX(this Vector4 source) =>
+			new Vector4(source.W, source.Z, source.Z, source.X);
+		public static Vector4 WZZY(this Vector4 source) =>
+			new Vector4(source.W, source.Z, source.Z, source.Y);
+		public static Vector4 WZZZ(this Vector4 source) =>
+			new Vector4(source.W, source.Z, source.Z, source.Z);
+		public static Vector4 WZZW(this Vector4 source) =>
+			new Vector4(source.W, source.Z, source.Z, source.W);
+		public static Vector4 WZWX(this Vector4 source) =>
+			new Vector4(source.W, source.Z, source.W, source.X);
+		public static Vector4 WZWY(this Vector4 source) =>
+			new Vector4(source.W, source.Z, source.W, source.Y);
+		public static Vector4 WZWZ(this Vector4 source) =>
+			new Vector4(source.W, source.Z, source.W, source.Z);
+		public static Vector4 WZWW(this Vector4 source) =>
+			new Vector4(source.W, source.Z, source.W, source.W);
+		public static Vector4 WWXX(this Vector4 source) =>
+			new Vector4(source.W, source.W, source.X, source.X);
+		public static Vector4 WWXY(this Vector4 source) =>
+			new Vector4(source.W, source.W, source.X, source.Y);
+		public static Vector4 WWXZ(this Vector4 source) =>
+			new Vector4(source.W, source.W, source.X, source.Z);
+		public static Vector4 WWXW(this Vector4 source) =>
+			new Vector4(source.W, source.W, source.X, source.W);
+		public static Vector4 WWYX(this Vector4 source) =>
+			new Vector4(source.W, source.W, source.Y, source.X);
+		public static Vector4 WWYY(this Vector4 source) =>
+			new Vector4(source.W, source.W, source.Y, source.Y);
+		public static Vector4 WWYZ(this Vector4 source) =>
+			new Vector4(source.W, source.W, source.Y, source.Z);
+		public static Vector4 WWYW(this Vector4 source) =>
+			new Vector4(source.W, source.W, source.Y, source.W);
+		public static Vector4 WWZX(this Vector4 source) =>
+			new Vector4(source.W, source.W, source.Z, source.X);
+		public static Vector4 WWZY(this Vector4 source) =>
+			new Vector4(source.W, source.W, source.Z, source.Y);
+		public static Vector4 WWZZ(this Vector4 source) =>
+			new Vector4(source.W, source.W, source.Z, source.Z);
+		public static Vector4 WWZW(this Vector4 source) =>
+			new Vector4(source.W, source.W, source.Z, source.W);
+		public static Vector4 WWWX(this Vector4 source) =>
+			new Vector4(source.W, source.W, source.W, source.X);
+		public static Vector4 WWWY(this Vector4 source) =>
+			new Vector4(source.W, source.W, source.W, source.Y);
+		public static Vector4 WWWZ(this Vector4 source) =>
+			new Vector4(source.W, source.W, source.W, source.Z);
+		public static Vector4 WWWW(this Vector4 source) =>
+			new Vector4(source.W, source.W, source.W, source.W);
 	}
 }

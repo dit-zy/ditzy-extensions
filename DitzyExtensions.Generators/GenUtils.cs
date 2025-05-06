@@ -67,18 +67,7 @@ public class GenUtils {
 					data.ClassSwizzleData.Values.Select(swizzleTargetData => {
 							var instanceSb = new StringBuilder();
 							var fields = swizzleTargetData.FieldsToSwizzle.Values;
-							var fieldChoices =
-								swizzleTargetData.NumFieldsToChoose == 0
-									? [fields]
-									: Choose(swizzleTargetData.NumFieldsToChoose, fields);
-							var fieldLists = fieldChoices.SelectMany(Permute).ToList();
-							fieldLists.Sort((a, b) => {
-									if (a.Count != b.Count) return a.Count - b.Count;
-									return a
-										.Select((t, i) => fields.IndexOf(t).CompareTo(fields.IndexOf(b[i])))
-										.FirstOrDefault(result => result != 0);
-								}
-							);
+							var fieldLists = CartesianProduct(fields, swizzleTargetData.NumFieldsToChoose);
 							foreach (var fieldList in fieldLists) {
 								instanceSb
 									.Append($"		public static {swizzleTargetData.TargetClassName} ")
@@ -104,67 +93,24 @@ public class GenUtils {
 		return sb.ToString();
 	}
 
-	private static IEnumerable<IList<T>> Choose<T>(int numToChoose, IList<T> source) {
-		var n = source.Count;
-		var bitmask = (1 << numToChoose) - 1;
-		while (bitmask < (1 << n)) {
-			yield return GetChoice(bitmask, source);
-			var x = bitmask & -bitmask;
-			var y = bitmask + x;
-			var z = (bitmask & ~y);
-			bitmask = z / x;
-			bitmask >>= 1;
-			bitmask |= y;
+	private static IEnumerable<IList<T>> CartesianProduct<T>(IEnumerable<T> source, int numOfComponents) =>
+		CartesianProductInner(source.ToArray(), new T[numOfComponents], numOfComponents, 0);
+
+	private static IEnumerable<IList<T>> CartesianProductInner<T>(T[] ls, T[] nextEntry, int numOfComponents, int i) {
+		if (numOfComponents <= i) {
+			return [Copy(nextEntry)];
 		}
-	}
-
-	private static IList<T> GetChoice<T>(int bitmask, IList<T> source) =>
-		source.Where((t, i) => IsBitSet(bitmask, i)).ToList();
-
-	private static bool IsBitSet(int bitmask, int index) => ((bitmask >> index) & 1) == 1;
-
-	private static IEnumerable<IList<T>> Permute<T>(IEnumerable<T> source) {
-		var ls = source.ToArray();
-		var c = new int[ls.Length];
-
-		yield return Copy(ls);
-
-		var i = 1;
-		var safetyLimit = Factorial(ls.Length) * 2;
-		for (var safety = 0; i < ls.Length && safety < safetyLimit; safety++) {
-			if (c[i] < i) {
-				if (i % 2 == 0) {
-					Swap(ls, 0, i);
-				} else {
-					Swap(ls, c[i], i);
-				}
-				yield return Copy(ls);
-				c[i] += 1;
-				i = 1;
-			} else {
-				c[i] = 0;
-				i += 1;
+		return ls.SelectMany(t => {
+				nextEntry[i] = t;
+				return CartesianProductInner(ls, nextEntry, numOfComponents, i + 1);
 			}
-		}
-	}
-
-	private static void Swap<T>(T[] ls, int i, int j) {
-		var n = ls.Length - 1;
-		(ls[n - i], ls[n - j]) = (ls[n - j], ls[n - i]);
+		);
 	}
 
 	private static T[] Copy<T>(T[] ls) {
 		var copy = new T[ls.Length];
 		ls.CopyTo(copy, 0);
 		return copy;
-	}
-
-	private static int Factorial(int n) {
-		var factorial = 1;
-		for (; 1 < n; n--) {
-			factorial *= n;
-		}
-		return factorial;
 	}
 }
 

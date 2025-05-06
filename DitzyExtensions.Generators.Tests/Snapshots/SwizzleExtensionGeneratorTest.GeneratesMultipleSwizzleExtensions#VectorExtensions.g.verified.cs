@@ -5,22 +5,32 @@ using System.Numerics;
 namespace GenTests.Tests {
 	public static partial class VectorExtensions {
 	
+		public static Vector2 XX(this Vector2 source) =>
+			new Vector2(source.X, source.X);
 		public static Vector2 XY(this Vector2 source) =>
 			new Vector2(source.X, source.Y);
 		public static Vector2 YX(this Vector2 source) =>
 			new Vector2(source.Y, source.X);
+		public static Vector2 YY(this Vector2 source) =>
+			new Vector2(source.Y, source.Y);
 
+		public static Vector2 XX(this Vector3 source) =>
+			new Vector2(source.X, source.X);
 		public static Vector2 XY(this Vector3 source) =>
 			new Vector2(source.X, source.Y);
 		public static Vector2 XZ(this Vector3 source) =>
 			new Vector2(source.X, source.Z);
 		public static Vector2 YX(this Vector3 source) =>
 			new Vector2(source.Y, source.X);
+		public static Vector2 YY(this Vector3 source) =>
+			new Vector2(source.Y, source.Y);
 		public static Vector2 YZ(this Vector3 source) =>
 			new Vector2(source.Y, source.Z);
 		public static Vector2 ZX(this Vector3 source) =>
 			new Vector2(source.Z, source.X);
 		public static Vector2 ZY(this Vector3 source) =>
 			new Vector2(source.Z, source.Y);
+		public static Vector2 ZZ(this Vector3 source) =>
+			new Vector2(source.Z, source.Z);
 	}
 }
