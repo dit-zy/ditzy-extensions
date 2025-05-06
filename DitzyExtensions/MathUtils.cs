@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Numerics;
+using System.Text;
 
 namespace DitzyExtensions {
 	public static class MathUtils {
@@ -51,6 +52,31 @@ namespace DitzyExtensions {
 				factorial *= n;
 			}
 			return factorial;
+		}
+
+		private const string ToStringChars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ+/";
+
+		public static string ToString(this byte value, int radix) => ToString((long)value, radix);
+		public static string ToString(this short value, int radix) => ToString((long)value, radix);
+		public static string ToString(this int value, int radix) => ToString((long)value, radix);
+		public static string ToString(this long value, int radix)
+		{
+			if (radix < 2 || 64 < radix) throw new ArgumentException("radix must be between 2 and 64 but was: " + radix);
+			
+			if (value == 0) return "0";
+
+			var result = new StringBuilder();
+			var negative = value < 0;
+			if (negative) value = -value;
+			
+			while (0 < value)
+			{
+				result.Insert(0, ToStringChars[(int)(value % radix)]);
+				value /= radix;
+			}
+
+			if (negative) result.Insert(0, "-");
+			return result.ToString();
 		}
 	}
 }
