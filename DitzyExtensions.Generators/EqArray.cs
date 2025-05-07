@@ -1,5 +1,4 @@
 ﻿using System.Collections.Immutable;
-using Microsoft.CodeAnalysis;
 
 namespace DitzyExtensions.Generators;
 
@@ -17,6 +16,10 @@ public class EqArray<T> : IEquatable<EqArray<T>> {
 
 	public EqArray(IEnumerable<T> source) {
 		Values = source.ToImmutableArray();
+	}
+
+	public override bool Equals(object? obj) {
+		return (obj is EqArray<T> other) && Equals(other);
 	}
 
 	public bool Equals(EqArray<T>? other) {
