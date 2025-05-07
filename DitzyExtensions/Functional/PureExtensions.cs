@@ -58,6 +58,13 @@ namespace DitzyExtensions.Functional {
 				yield return i;
 			}
 		}
+		
+		public static U Let<T, U>(this T item, Func<T, U> transform) => transform(item);
+		
+		public static T Run<T>(this T item, Action<T> action) {
+			action(item);
+			return item;
+		}
 
 		public static Func<Nothing> AsFunc(this Action action) =>
 			() => {
