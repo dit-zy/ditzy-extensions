@@ -5,6 +5,7 @@ using System.Numerics;
 using System.Reflection;
 using CSharpFunctionalExtensions;
 using DitzyExtensions.Collection;
+using DitzyExtensions.Functional;
 using DitzyExtensions.Testing.FsCheck;
 using DitzyExtensions.Tests.TestUtils;
 using FluentAssertions;
@@ -12,107 +13,81 @@ using FluentAssertions.Execution;
 using FsCheck;
 using FsCheck.Xunit;
 using JetBrains.Annotations;
+using Xunit.Abstractions;
 using static DitzyExtensions.MathUtils;
+using static DitzyExtensions.Tests.TestUtils.AssertionUtils;
 using FCU = DitzyExtensions.Testing.FsCheck.FsCheckUtils;
 
 namespace DitzyExtensions.Tests {
 	[TestSubject(typeof(VectorExtensions))]
 	public class VectorExtensionsTests {
-		[Property]
-		public Property Prop_Swizzle_V2xV2() => FCU.ForAll(
-			Arbs.Vector2(),
-			v => {
-				using (new AssertionScope()) {
-					GetSwizzleMethods<Vector2, Vector2>()
-						.ForEach(method =>
-							GetActualVector2(method, v).Should().Equal(
-								GetExpectedSwizzleVector2(method.Name, v),
-								because: method.Name
-							)
-						);
-				}
-			}
-		);
+		private readonly ITestOutputHelper _output;
+
+		public VectorExtensionsTests(ITestOutputHelper output) {
+			_output = output;
+		}
 
 		[Property]
-		public Property Prop_Swizzle_V3xV2() => FCU.ForAll(
-			Arbs.Vector3(),
-			v => {
-				using (new AssertionScope()) {
-					GetSwizzleMethods<Vector3, Vector2>()
-						.ForEach(method =>
-							GetActualVector2(method, v).Should().Equal(
-								GetExpectedSwizzleVector2(method.Name, v),
-								because: method.Name
-							)
-						);
-				}
-			}
-		);
+		public Property Prop_Swizzle_V2xV2() =>
+			SwizzleTest(Arbs.Vector2(), GetActualVector2, GetExpectedSwizzleVector2);
 
 		[Property]
-		public Property Prop_Swizzle_V3xV3() => FCU.ForAll(
-			Arbs.Vector3(),
-			v => {
-				using (new AssertionScope()) {
-					GetSwizzleMethods<Vector3, Vector3>()
-						.ForEach(method =>
-							GetActualVector3(method, v).Should().Equal(
-								GetExpectedSwizzleVector3(method.Name, v),
-								because: method.Name
-							)
-						);
-				}
-			}
-		);
+		public Property Prop_Swizzle_V2xV3() =>
+			SwizzleTest(Arbs.Vector2(), GetActualVector3, GetExpectedSwizzleVector3);
 
 		[Property]
-		public Property Prop_Swizzle_V4xV2() => FCU.ForAll(
-			Arbs.Vector4(),
-			v => {
-				using (new AssertionScope()) {
-					GetSwizzleMethods<Vector4, Vector2>()
-						.ForEach(method =>
-							GetActualVector2(method, v).Should().Equal(
-								GetExpectedSwizzleVector2(method.Name, v),
-								because: method.Name
-							)
-						);
-				}
-			}
-		);
+		public Property Prop_Swizzle_V2xV4() =>
+			SwizzleTest(Arbs.Vector2(), GetActualVector4, GetExpectedSwizzleVector4);
 
 		[Property]
-		public Property Prop_Swizzle_V4xV3() => FCU.ForAll(
-			Arbs.Vector4(),
-			v => {
-				using (new AssertionScope()) {
-					GetSwizzleMethods<Vector4, Vector3>()
-						.ForEach(method =>
-							GetActualVector3(method, v).Should().Equal(
-								GetExpectedSwizzleVector3(method.Name, v),
-								because: method.Name
-							)
-						);
-				}
-			}
-		);
+		public Property Prop_Swizzle_V3xV2() =>
+			SwizzleTest(Arbs.Vector3(), GetActualVector2, GetExpectedSwizzleVector2);
 
 		[Property]
-		public Property Prop_Swizzle_V4xV4() => FCU.ForAll(
-			Arbs.Vector4(),
-			v => {
-				using (new AssertionScope()) {
-					GetSwizzleMethods<Vector4, Vector4>()
-						.ForEach(method =>
-							GetActualVector4(method, v).Should().Equal(
-								GetExpectedSwizzleVector4(method.Name, v),
-								because: method.Name
-							)
-						);
-				}
-			}
-		);
+		public Property Prop_Swizzle_V3xV3() =>
+			SwizzleTest(Arbs.Vector3(), GetActualVector3, GetExpectedSwizzleVector3);
+
+		[Property]
+		public Property Prop_Swizzle_V3xV4() =>
+			SwizzleTest(Arbs.Vector3(), GetActualVector4, GetExpectedSwizzleVector4);
+
+		[Property]
+		public Property Prop_Swizzle_V4xV2() =>
+			SwizzleTest(Arbs.Vector4(), GetActualVector2, GetExpectedSwizzleVector2);
+
+		[Property]
+		public Property Prop_Swizzle_V4xV3() =>
+			SwizzleTest(Arbs.Vector4(), GetActualVector3, GetExpectedSwizzleVector3);
+
+		[Property]
+		public Property Prop_Swizzle_V4xV4() =>
+			SwizzleTest(Arbs.Vector4(), GetActualVector4, GetExpectedSwizzleVector4);
+
+		private Property SwizzleTest<From, To>(
+			Arbitrary<From> arb,
+			Func<MethodInfo, object, To> getActual,
+			Func<string, From, To> getExpected
+		) {
+			var methods = GetSwizzleMethods<From, To>();
+			_output.WriteLine("testing {0} methods", methods.Count);
+			return FCU.ForAll(
+				arb,
+				v => WithAssertionScope(() =>
+					methods.ForEach(method => {
+							var actual = getActual(method, v);
+							var expected = getExpected(method.Name, v);
+							if (typeof(To) == typeof(Vector2)) {
+								((Vector2)(object)actual).Should().Equal((Vector2)(object)expected, because: method.Name);
+							} else if (typeof(To) == typeof(Vector3)) {
+								((Vector3)(object)actual).Should().Equal((Vector3)(object)expected, because: method.Name);
+							} else {
+								((Vector4)(object)actual).Should().Equal((Vector4)(object)expected, because: method.Name);
+							}
+						}
+					)
+				)
+			);
+		}
 
 		private Vector2 GetActualVector2(MethodInfo method, object vec) =>
 			(Vector2)method.Invoke(null, new[] { vec });
