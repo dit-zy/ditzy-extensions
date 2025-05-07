@@ -23,11 +23,13 @@ public class EqArray<T> : IEquatable<EqArray<T>> {
 	}
 
 	public bool Equals(EqArray<T>? other) {
-		if (this == other) return true;
+		if (ReferenceEquals(this, other)) return true;
 		if (ReferenceEquals(Values, other?.Values)) return true;
 		if (Values.Count != other!.Values.Count) return false;
 		return Values
 			.Select((t, i) => Equals(t, other.Values[i]))
 			.All(b => b);
 	}
+	
+	public override int GetHashCode() => Values.GetHashCode();
 }
