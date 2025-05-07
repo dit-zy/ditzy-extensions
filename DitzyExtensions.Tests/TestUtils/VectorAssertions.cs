@@ -14,10 +14,10 @@ namespace DitzyExtensions.Tests.TestUtils {
 			_chain = chain;
 		}
 
-		protected virtual float X => throw new ArgumentException($"{Subject.GetType()} has no X component.");
-		protected virtual float Y => throw new ArgumentException($"{Subject.GetType()} has no Y component.");
-		protected virtual float Z => throw new ArgumentException($"{Subject.GetType()} has no Z component.");
-		protected virtual float W => throw new ArgumentException($"{Subject.GetType()} has no W component.");
+		protected virtual float X => throw new ArgumentException($"{typeof(S)} has no X component.");
+		protected virtual float Y => throw new ArgumentException($"{typeof(S)} has no Y component.");
+		protected virtual float Z => throw new ArgumentException($"{typeof(S)} has no Z component.");
+		protected virtual float W => throw new ArgumentException($"{typeof(S)} has no W component.");
 
 		protected virtual float GetMagnitudeSq(S vector) => throw new NotImplementedException();
 		protected virtual float GetDiffMagnitudeSq(S other) => throw new NotImplementedException();

@@ -5,11 +5,9 @@ using System.Numerics;
 using System.Reflection;
 using CSharpFunctionalExtensions;
 using DitzyExtensions.Collection;
-using DitzyExtensions.Functional;
 using DitzyExtensions.Testing.FsCheck;
 using DitzyExtensions.Tests.TestUtils;
 using FluentAssertions;
-using FluentAssertions.Execution;
 using FsCheck;
 using FsCheck.Xunit;
 using JetBrains.Annotations;
@@ -27,6 +25,9 @@ namespace DitzyExtensions.Tests {
 			_output = output;
 		}
 
+#pragma warning disable CS8604 // Possible null reference argument.
+#pragma warning disable CS8605 // Unboxing a possibly null value.
+#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
 		[Property]
 		public Property Prop_Swizzle_V2xV2() =>
 			SwizzleTest(Arbs.Vector2(), GetActualVector2, GetExpectedSwizzleVector2);
@@ -97,6 +98,10 @@ namespace DitzyExtensions.Tests {
 
 		private Vector4 GetActualVector4(MethodInfo method, object vec) =>
 			(Vector4)method.Invoke(null, new[] { vec });
+
+#pragma warning restore CS8600
+#pragma warning restore CS8605
+#pragma warning restore CS8604
 
 		private Vector2 GetExpectedSwizzleVector2(string methodName, Vector2 vec) =>
 			GetExpectedSwizzleVector2(methodName, V4(vec.X, vec.Y, 0, 0));
