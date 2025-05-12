@@ -1,10 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Numerics;
+using System.Text;
 using DitzyExtensions.Collection;
 using DitzyExtensions.Functional;
 using DitzyExtensions.Testing.FsCheck;
 using FluentAssertions;
 using FsCheck;
+using FsCheck.Fluent;
 using FsCheck.Xunit;
 using JetBrains.Annotations;
 using Xunit;
@@ -249,5 +252,60 @@ namespace DitzyExtensions.Tests {
 		}
 
 		#endregion
+
+		private const string ToStringChars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ+/";
+
+		[Property(Replay = "(17974118265581679621,15076827306960606809,4)")]
+		public Property Prop_ToString_Radix_byte() =>
+			Prop_ToString_Radix(byte.MaxValue, (n, radix) => ((byte)n).ToString(radix), false);
+
+		[Property]
+		public Property Prop_ToString_Radix_short() =>
+			Prop_ToString_Radix(short.MaxValue, (n, radix) => ((short)n).ToString(radix));
+
+		[Property]
+		public Property Prop_ToString_Radix_int() =>
+			Prop_ToString_Radix(int.MaxValue, (n, radix) => ((int)n).ToString(radix));
+
+		[Property]
+		public Property Prop_ToString_Radix_long() =>
+			Prop_ToString_Radix(long.MaxValue, (n, radix) => n.ToString(radix));
+
+		public Property Prop_ToString_Radix(double typeMax, Func<long, int, string> stringToTest, bool allowNegative = true) => FCU.ForAll(
+			ToString_Radix_Arb(),
+			ArbMap.Default.ArbFor<bool>(),
+			(numStr, negative) => {
+				// GIVEN
+				var radix = numStr.n;
+				var maxStrLen = (int)Math.Log(typeMax, radix);
+				var str = numStr.str.Substring(0, Math.Min(maxStrLen, numStr.str.Length));
+				var num = str.Reduce(
+					(n, nextChar) => n * radix + ToStringChars.IndexOf(nextChar),
+					0L
+				);
+				if (allowNegative && negative) {
+					num = -num;
+					str = "-" + str;
+				}
+
+				// WHEN
+				var numToString = stringToTest(num, radix);
+
+				// THEN
+				numToString.Should().Be(str);
+			}
+		);
+
+		private static Arbitrary<(int n, string str)> ToString_Radix_Arb() {
+			return Gen.Choose(2, 64)
+				.Select(n => (n, ToStringChars.Substring(0, n).ToCharArray()))
+				.SelectMany(p =>
+					Gen.Elements(p.Item2)
+						.NonEmptyListOf()
+						.Select(s => (p.n, s: s.Join(null).TrimStart('0')))
+						.Where(q => 0 < q.s.Length)
+				)
+				.ToArbitrary();
+		}
 	}
 }

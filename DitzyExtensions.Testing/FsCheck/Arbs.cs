@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using System.Text;
 using CSharpFunctionalExtensions;
 using DitzyExtensions.Collection;
 using FsCheck;
@@ -14,9 +15,21 @@ namespace DitzyExtensions.Testing.FsCheck {
 			GenFor<UnicodeString>()
 				.Select(s => s.ToString())
 				.ToArbitrary();
+		
+		public static Arbitrary<string> String(string charactersToUse) =>
+			Gen.Elements(charactersToUse.ToArray())
+				.ListOf()
+				.Select(s => new StringBuilder().Append(s).ToString())
+				.ToArbitrary();
 
 		public static Arbitrary<string> NonEmptyString() =>
 			String()
+				.Generator
+				.Where(s => !string.IsNullOrEmpty(s))
+				.ToArbitrary();
+
+		public static Arbitrary<string> NonEmptyString(string charactersToUse) =>
+			String(charactersToUse)
 				.Generator
 				.Where(s => !string.IsNullOrEmpty(s))
 				.ToArbitrary();
