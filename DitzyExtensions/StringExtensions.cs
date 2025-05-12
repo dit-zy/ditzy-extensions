@@ -14,5 +14,12 @@ namespace DitzyExtensions {
 		public static string Join(this IEnumerable<string> source, string separator) =>
 #endif
 			string.Join(separator, source);
+		
+#if NET6_0_OR_GREATER
+		public static string Join(this IEnumerable<char> source, string? separator) =>
+#else
+		public static string Join(this IEnumerable<char> source, string separator) =>
+#endif
+			string.Join(separator, source);
 	}
 }
