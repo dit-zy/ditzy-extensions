@@ -115,6 +115,7 @@ namespace DitzyExtensions.Tests.TestUtils {
 		protected override string Identifier => "vector3";
 		protected override float X => Subject.X;
 		protected override float Y => Subject.Y;
+		protected override float Z => Subject.Z;
 		protected override float GetMagnitudeSq(Vector3 vector) => vector.LengthSquared();
 		protected override float GetDiffMagnitudeSq(Vector3 other) => (Subject - other).LengthSquared();
 	}
@@ -124,6 +125,8 @@ namespace DitzyExtensions.Tests.TestUtils {
 		protected override string Identifier => "vector4";
 		protected override float X => Subject.X;
 		protected override float Y => Subject.Y;
+		protected override float Z => Subject.Z;
+		protected override float W => Subject.W;
 		protected override float GetMagnitudeSq(Vector4 vector) => vector.LengthSquared();
 		protected override float GetDiffMagnitudeSq(Vector4 other) => (Subject - other).LengthSquared();
 	}
