@@ -1,12 +1,12 @@
-﻿#if N48_S2
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using DitzyExtensions.Functional;
+#if N48_S2
 using System.Collections.ObjectModel;
 #else
 using System.Collections.Immutable;
 #endif
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace DitzyExtensions.Collection {
 	public static class DictExtensions {
@@ -73,6 +73,86 @@ namespace DitzyExtensions.Collection {
 			source
 				.AsDict()
 				.ToDictionary(entry => entry.Key, entry => entry.Value);
+
+		public static IMultiDict<K, V> AsMultiDict<K, V>(this IEnumerable<KeyValuePair<K, V>> source)
+#if N48_S2
+			=>
+#else
+			where K : notnull =>
+#endif
+			source.Select(entry => (entry.Key, entry.Value)).AsMultiDict();
+
+		public static IMultiDict<K, V> AsMultiDict<K, V>(this IEnumerable<(K key, V value)> source)
+#if N48_S2
+			=>
+#else
+			where K : notnull =>
+#endif
+			new ImmutableMultiDict<K, V>(source.AsMutableMultiDict());
+
+		public static IMultiDict<K, V> AsMultiDict<K, V>(this IEnumerable<V> source, Func<V, K> keySelector)
+#if N48_S2
+			=>
+#else
+			where K : notnull =>
+#endif
+			source.AsMultiDict(keySelector, value => value);
+
+		public static IMultiDict<K, V> AsMultiDict<T, K, V>(
+			this IEnumerable<T> source,
+			Func<T, K> keySelector,
+			Func<T, V> valueSelector
+		)
+#if N48_S2
+			=>
+#else
+			where K : notnull =>
+#endif
+			source.Select(entry => (keySelector(entry), valueSelector(entry))).AsMultiDict();
+
+		public static IMultiDict<K, V> AsMutableMultiDict<K, V>(this IEnumerable<KeyValuePair<K, V>> source)
+#if N48_S2
+			=>
+#else
+			where K : notnull =>
+#endif
+			source.Select(entry => (entry.Key, entry.Value)).AsMutableMultiDict();
+
+		public static IMultiDict<K, V> AsMutableMultiDict<K, V>(this IEnumerable<(K key, V value)> source)
+#if N48_S2
+			=>
+#else
+			where K : notnull =>
+#endif
+			source
+				.GroupBy(entry => entry.key)
+				.Reduce(
+					(acc, grouping) => {
+						acc.AddRange(grouping.Key, grouping.Select(kv => kv.value));
+						return acc;
+					},
+					new MultiDict<K, V>()
+				);
+
+		public static IMultiDict<K, V> AsMutableMultiDict<K, V>(this IEnumerable<V> source, Func<V, K> keySelector)
+#if N48_S2
+			=>
+#else
+			where K : notnull =>
+#endif
+			source.AsMutableMultiDict(keySelector, value => value);
+
+		public static IMultiDict<K, V> AsMutableMultiDict<T, K, V>(
+			this IEnumerable<T> source,
+			Func<T, K> keySelector,
+			Func<T, V> valueSelector
+		)
+#if N48_S2
+			=>
+#else
+			where K : notnull =>
+#endif
+			source.Select(entry => (keySelector(entry), valueSelector(entry))).AsMutableMultiDict();
 
 #if NET6_0_OR_GREATER
 		public static V GetValueOrDefault<K, V>(this IDictionary<K, V> source, K key) =>
