@@ -1,4 +1,5 @@
 ﻿using CSharpFunctionalExtensions;
+using DitzyExtensions.Testing.Assertions.Functional;
 using FluentAssertions.Execution;
 
 namespace DitzyExtensions.Testing.Functional.Result {

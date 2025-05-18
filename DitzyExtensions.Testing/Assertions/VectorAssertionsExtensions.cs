@@ -1,8 +1,9 @@
 ﻿using System.Numerics;
+using DitzyExtensions.Tests.TestUtils;
 using FluentAssertions.Execution;
 
-namespace DitzyExtensions.Tests.TestUtils {
-	public static class VectorTestExtensions {
+namespace DitzyExtensions.Testing.Assertions {
+	public static class VectorAssertionsExtensions {
 		public static Vector2Assertions Should(this Vector2 instance) =>
 			new Vector2Assertions(instance, AssertionChain.GetOrCreate());
 

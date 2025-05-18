@@ -5,6 +5,7 @@ using System.Numerics;
 using System.Reflection;
 using CSharpFunctionalExtensions;
 using DitzyExtensions.Collection;
+using DitzyExtensions.Testing.Assertions;
 using DitzyExtensions.Testing.FsCheck;
 using DitzyExtensions.Tests.TestUtils;
 using FluentAssertions;
@@ -13,7 +14,7 @@ using FsCheck.Xunit;
 using JetBrains.Annotations;
 using Xunit.Abstractions;
 using static DitzyExtensions.MathUtils;
-using static DitzyExtensions.Tests.TestUtils.AssertionUtils;
+using static DitzyExtensions.Testing.Assertions.AssertionUtils;
 using FCU = DitzyExtensions.Testing.FsCheck.FsCheckUtils;
 
 namespace DitzyExtensions.Tests {
