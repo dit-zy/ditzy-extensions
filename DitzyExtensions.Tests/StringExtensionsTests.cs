@@ -10,7 +10,7 @@ using FCU = DitzyExtensions.Testing.FsCheck.FsCheckUtils;
 
 namespace DitzyExtensions.Tests {
 	[TestSubject(typeof(StringExtensions))]
-	public class StringExtensionTests {
+	public class StringExtensionsTests {
 
 		[Property]
 		public Property Prop_AsLower() => FCU.ForAll(

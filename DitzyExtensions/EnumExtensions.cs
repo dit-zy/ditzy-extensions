@@ -10,17 +10,17 @@ namespace DitzyExtensions {
 			Enum.GetValues(typeof(T)) as T[] ?? Array.Empty<T>();
 #endif
 
-		public static T AsEnum<T>(this string enumName) where T : struct =>
+		public static T AsEnum<T>(this string enumName) where T : struct, Enum =>
 			TryAsEnum<T>(enumName).TryGetValue(out T result)
 				? result
 				: throw new ArgumentException($"Enum '{enumName}' does not exist.");
 
-		public static Result<T, string> TryAsEnum<T>(this string enumName) where T : struct =>
+		public static Result<T, string> TryAsEnum<T>(this string enumName) where T : struct, Enum =>
 			enumName.TryAsEnum(out T result)
 				? Result.Success<T, string>(result)
 				: $"Enum '{enumName}' not found for type '{typeof(T).Name}'.";
 
-		public static bool TryAsEnum<T>(this string enumName, out T result) where T : struct {
+		public static bool TryAsEnum<T>(this string enumName, out T result) where T : struct, Enum {
 			var foundEnum = Enum.TryParse(enumName, true, out T parseResult);
 			result = parseResult;
 			return foundEnum;

@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup Label="feature">
 		<TargetFrameworks>net9.0;net8.0;net7.0;net6.0;net48;netstandard2.0</TargetFrameworks>
@@ -24,6 +24,7 @@
 
 	<ItemGroup Label="dependencies">
 		<PackageReference Include="CSharpFunctionalExtensions" Version="3.6.0" />
+		<PackageReference Include="FluentAssertions" Version="8.2.0" />
 		<PackageReference Include="FsCheck" Version="3.2.0" />
 		<PackageReference Include="FsCheck.Xunit" Version="3.2.0" />
 	</ItemGroup>
