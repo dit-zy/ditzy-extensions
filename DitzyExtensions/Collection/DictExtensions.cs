@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using CSharpFunctionalExtensions;
 using DitzyExtensions.Functional;
 #if N48_S2
 using System.Collections.ObjectModel;
@@ -10,6 +11,8 @@ using System.Collections.Immutable;
 
 namespace DitzyExtensions.Collection {
 	public static class DictExtensions {
+		#region conversions
+
 		public static IDictionary<K, V> AsDict<K, V>(this IEnumerable<KeyValuePair<K, V>> source)
 #if N48_S2
 			=>
@@ -154,17 +157,9 @@ namespace DitzyExtensions.Collection {
 #endif
 			source.Select(entry => (keySelector(entry), valueSelector(entry))).AsMutableMultiDict();
 
-#if NET6_0_OR_GREATER
-		public static V GetValueOrDefault<K, V>(this IDictionary<K, V> source, K key) =>
-			source.GetValueOrDefault(key, default!);
-#endif
+		#endregion
 
-#if NET6_0_OR_GREATER
-		public static V GetValueOrDefault<K, V>(this IDictionary<K, V> source, K key, V defaultValue) =>
-			source.TryGetValue(key, out var value) ? value : defaultValue;
-#endif
-
-		public static bool NotContainsKey<K, V>(this IDictionary<K, V> source, K key) => !source.ContainsKey(key);
+		#region loops
 
 		public static IDictionary<K, V> ForEachEntry<K, V>(this IDictionary<K, V> source, Action<K, V> action)
 #if N48_S2
@@ -199,6 +194,27 @@ namespace DitzyExtensions.Collection {
 			Func<K, V, int, IEnumerable<T>> transform
 		) =>
 			source.SelectMany((kv, index) => transform(kv.Key, kv.Value, index));
+
+		#endregion
+
+#if N48_S2
+		public static V GetValueOrDefault<K, V>(this IDictionary<K, V> source, K key, V defaultValue = default) =>
+#else
+		public static V GetValueOrDefault<K, V>(this IDictionary<K, V> source, K key, V defaultValue = default!) =>
+#endif
+			source.TryGetValue(key, out var value) ? value : defaultValue;
+
+#if N48_S2
+		public static V GetValueOrSetDefault<K, V>(this IDictionary<K, V> source, K key, V defaultValue = default) {
+#else
+		public static V GetValueOrSetDefault<K, V>(this IDictionary<K, V> source, K key, V defaultValue = default!) {
+#endif
+			if (source.TryGetValue(key, out var value)) return value;
+			source.Add(key, defaultValue);
+			return defaultValue;
+		}
+
+		public static bool NotContainsKey<K, V>(this IDictionary<K, V> source, K key) => !source.ContainsKey(key);
 
 		public static IDictionary<K, V> With<K, V>(this IDictionary<K, V> source, params (K, V)[] entries)
 #if N48_S2
@@ -250,6 +266,20 @@ namespace DitzyExtensions.Collection {
 			return source;
 		}
 
+		public static IDictionary<K, V> UpdateKey<K, V>(this IDictionary<K, V> source, K key, Func<K, V, V> updateFunc) {
+			if (source.TryGetValue(key, out var value)) {
+				source.Remove(key);
+				source.Add(key, updateFunc(key, value));
+			}
+			return source;
+		}
+
+		public static IDictionary<K, V> Put<K, V>(this IDictionary<K, V> source, K key, V value) {
+			source.Remove(key);
+			source.Add(key, value);
+			return source;
+		}
+
 		public static IDictionary<K, V> UseToUpdate<K, V>(
 			this IEnumerable<(K, V)> updateEntries,
 			IDictionary<K, V> target
@@ -259,6 +289,12 @@ namespace DitzyExtensions.Collection {
 		) where K : notnull =>
 #endif
 			target.Update(updateEntries);
+
+		public static Maybe<V> MaybeRemove<K, V>(this IDictionary<K, V> source, K key) {
+			if (!source.TryGetValue(key, out var value)) return Maybe<V>.None;
+			source.Remove(key);
+			return value;
+		}
 
 		public static IDictionary<K, V> VerifyEnumDictionary<K, V>(this IDictionary<K, V> enumDict)
 			where K : struct, Enum {

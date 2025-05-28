@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using CSharpFunctionalExtensions;
 #if !N48_S2
 using System.Collections.Immutable;
@@ -34,6 +36,8 @@ namespace DitzyExtensions.Collection {
 
 		public static IList<T> AsMutableList<T>(this IEnumerable<T> source) =>
 			source.ToList();
+
+		public static ISet<T> AsMutableSet<T>(this IEnumerable<T> source) => new HashSet<T>(source);
 
 		public static IList<T> AsSingletonList<T>(this T value) =>
 			new[] { value }.AsList();
@@ -76,7 +80,7 @@ namespace DitzyExtensions.Collection {
 				i++;
 			}
 		}
-		
+
 		/// <summary>
 		/// Return a subset of the <c>source</c> enumerable, only containing the last <c>numElements</c> number of elements. If <c>numElements</c> is negative, returns elements starting from that many elements from the beginning of <c>source</c>.
 		/// </summary>
@@ -227,6 +231,12 @@ namespace DitzyExtensions.Collection {
 			ls.CopyTo(copy, 0);
 			return copy;
 		}
+
+		public static string AsString<T>(this IEnumerable<T> source) =>
+			new StringBuilder()
+				.Append('[')
+				.Append(source.Select(element => element?.ToString() ?? "null").Join(", "))
+				.Append(']')
+				.ToString();
 	}
-	
 }

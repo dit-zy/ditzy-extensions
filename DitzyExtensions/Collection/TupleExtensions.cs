@@ -32,6 +32,54 @@ namespace DitzyExtensions.Collection {
 		public static IEnumerable<W> SelectFourth<T, U, V, W>(this IEnumerable<(T t, U u, V v, W w)> source) =>
 			source.Select(tuple => tuple.w);
 
+		public static IEnumerable<R> SelectFirst<T, U, R>(this IEnumerable<(T t, U u)> source, Func<T, R> transform) =>
+			source.Select(tuple => transform(tuple.t));
+
+		public static IEnumerable<R> SelectFirst<T, U, V, R>(
+			this IEnumerable<(T t, U u, V v)> source,
+			Func<T, R> transform
+		) =>
+			source.Select(tuple => transform(tuple.t));
+
+		public static IEnumerable<R> SelectFirst<T, U, V, W, R>(
+			this IEnumerable<(T t, U u, V v, W w)> source,
+			Func<T, R> transform
+		) =>
+			source.Select(tuple => transform(tuple.t));
+
+		public static IEnumerable<R> SelectSecond<T, U, R>(this IEnumerable<(T t, U u)> source, Func<U, R> transform) =>
+			source.Select(tuple => transform(tuple.u));
+
+		public static IEnumerable<R> SelectSecond<T, U, V, R>(
+			this IEnumerable<(T t, U u, V v)> source,
+			Func<U, R> transform
+		) =>
+			source.Select(tuple => transform(tuple.u));
+
+		public static IEnumerable<R> SelectSecond<T, U, V, W, R>(
+			this IEnumerable<(T t, U u, V v, W w)> source,
+			Func<U, R> transform
+		) =>
+			source.Select(tuple => transform(tuple.u));
+
+		public static IEnumerable<R> SelectThird<T, U, V, R>(
+			this IEnumerable<(T t, U u, V v)> source,
+			Func<V, R> transform
+		) =>
+			source.Select(tuple => transform(tuple.v));
+
+		public static IEnumerable<R> SelectThird<T, U, V, W, R>(
+			this IEnumerable<(T t, U u, V v, W w)> source,
+			Func<V, R> transform
+		) =>
+			source.Select(tuple => transform(tuple.v));
+
+		public static IEnumerable<R> SelectFourth<T, U, V, W, R>(
+			this IEnumerable<(T t, U u, V v, W w)> source,
+			Func<W, R> transform
+		) =>
+			source.Select(tuple => transform(tuple.w));
+
 		public static IEnumerable<(K key, V value)> AsPairs<K, V>(this IDictionary<K, V> source) =>
 			source.Select(entry => (entry.Key, entry.Value));
 
@@ -41,41 +89,90 @@ namespace DitzyExtensions.Collection {
 #else
 			where A : notnull =>
 #endif
-				source
-					.AsDict()
-					.AsPairs();
+			source
+				.AsDict()
+				.AsPairs();
 
-		public static IEnumerable<(U, T)> Flip<T, U>(this IEnumerable<(T t, U u)> source) =>
+		public static IEnumerable<(U t, T u)> Flip<T, U>(this IEnumerable<(T t, U u)> source) =>
 			source.Select(entry => (entry.u, entry.t));
 
-#if N48_S2
-		public static IEnumerable<(T t, U u)> Zip<T, U>(this IEnumerable<T> first, IEnumerable<U> second) {
+		public static IEnumerable<(V t, U u, T v)> Flip<T, U, V>(this IEnumerable<(T t, U u, V v)> source) =>
+			source.Select(entry => (entry.v, entry.u, entry.t));
+
+		public static IEnumerable<(W t, V u, U v, T w)> Flip<T, U, V, W>(this IEnumerable<(T t, U u, V v, W w)> source) =>
+			source.Select(entry => (entry.w, entry.v, entry.u, entry.t));
+
+		#region zipwith
+
+		public static IEnumerable<(T t, U u)> ZipWith<T, U>(
+			this IEnumerable<T> first,
+			IEnumerable<U> second
+		) =>
+			first.ZipWith(second, (t, u) => (t, u));
+
+		public static IEnumerable<(T t, U u, V v)> ZipWith<T, U, V>(
+			this IEnumerable<T> first,
+			IEnumerable<U> second,
+			IEnumerable<V> third
+		) =>
+			first.ZipWith(second, third, (t, u, v) => (t, u, v));
+
+		public static IEnumerable<(T t, U u, V v, W w)> ZipWith<T, U, V, W>(
+			this IEnumerable<T> first,
+			IEnumerable<U> second,
+			IEnumerable<V> third,
+			IEnumerable<W> fourth
+		) =>
+			first.ZipWith(second, third, fourth, (t, u, v, w) => (t, u, v, w));
+
+		public static IEnumerable<R> ZipWith<T, U, R>(
+			this IEnumerable<T> first,
+			IEnumerable<U> second,
+			Func<T, U, R> transform
+		) {
 			using (var eT = first.GetEnumerator())
-			using (var eU = second.GetEnumerator())
-			{
-				while (eT.MoveNext() && eU.MoveNext())
-				{
-					yield return (eT.Current, eU.Current);
+			using (var eU = second.GetEnumerator()) {
+				while (eT.MoveNext() && eU.MoveNext()) {
+					yield return transform(eT.Current, eU.Current);
 				}
 			}
 		}
 
-		public static IEnumerable<(T t, U u, V v)> Zip<T, U, V>(
+		public static IEnumerable<R> ZipWith<T, U, V, R>(
 			this IEnumerable<T> first,
 			IEnumerable<U> second,
-			IEnumerable<V> third
+			IEnumerable<V> third,
+			Func<T, U, V, R> transform
+		) {
+			using (var eT = first.GetEnumerator())
+			using (var eU = second.GetEnumerator())
+			using (var eV = third.GetEnumerator()) {
+				while (eT.MoveNext() && eU.MoveNext() && eV.MoveNext()) {
+					yield return transform(eT.Current, eU.Current, eV.Current);
+				}
+			}
+		}
+
+		public static IEnumerable<R> ZipWith<T, U, V, W, R>(
+			this IEnumerable<T> first,
+			IEnumerable<U> second,
+			IEnumerable<V> third,
+			IEnumerable<W> fourth,
+			Func<T, U, V, W, R> transform
 		) {
 			using (var eT = first.GetEnumerator())
 			using (var eU = second.GetEnumerator())
 			using (var eV = third.GetEnumerator())
-			{
-				while (eT.MoveNext() && eU.MoveNext())
-				{
-					yield return (eT.Current, eU.Current, eV.Current);
+			using (var eW = fourth.GetEnumerator()) {
+				while (eT.MoveNext() && eU.MoveNext() && eV.MoveNext() && eW.MoveNext()) {
+					yield return transform(eT.Current, eU.Current, eV.Current, eW.Current);
 				}
 			}
 		}
-#endif
+
+		#endregion
+
+		#region unzip
 
 		public static (IEnumerable<T> ts, IEnumerable<U> us) Unzip<T, U>(this IEnumerable<(T t, U u)> source) =>
 			source.Unzip((ts, us) => (ts, us));
@@ -140,5 +237,7 @@ namespace DitzyExtensions.Collection {
 				);
 			return transform.Invoke(ts, us, vs, ws);
 		}
+
+		#endregion
 	}
 }
