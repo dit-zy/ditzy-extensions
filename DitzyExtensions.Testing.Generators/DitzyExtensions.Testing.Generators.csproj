@@ -18,7 +18,7 @@
 		<PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.10.0" PrivateAssets="all"/>
 
 		<PackageReference Include="CSharpFunctionalExtensions" Version="3.6.0" GeneratePathProperty="true" PrivateAssets="all"/>
-		<PackageReference Include="DitzyExtensions" Version="1.3.2-SNAPSHOT" GeneratePathProperty="true" PrivateAssets="all"/>
+		<ProjectReference Include="../DitzyExtensions/DitzyExtensions.csproj" GeneratePathProperty="true" PrivateAssets="all"/>
 	</ItemGroup>
 
 	<Target Name="GetDependencyTargetPaths">
@@ -28,7 +28,7 @@
 				IncludeRuntimeDependency="false"
 			/>
 			<TargetPathWithTargetPlatformMoniker
-				Include="$(PKGDitzyExtensions)\lib\netstandard2.0\DitzyExtensions.dll"
+				Include="../DitzyExtensions/obj/$(configuration)/netstandard2.0/DitzyExtensions.dll"
 				IncludeRuntimeDependency="false"
 			/>
 		</ItemGroup>
