@@ -111,7 +111,7 @@ namespace DitzyExtensions.Testing.FsCheck {
 			var enumValues = GetEnumValues<K>();
 			return GenFor<V>()
 				.ListOf(enumValues.Length)
-				.Select(valueList => enumValues.Zip(valueList))
+				.Select(valueList => enumValues.ZipWith(valueList))
 				.Select(entries => entries.AsDict())
 				.ToArbitrary();
 		}
@@ -157,7 +157,7 @@ namespace DitzyExtensions.Testing.FsCheck {
 #if !N48_S2
 						Gen.Frequency(freqs.Zip(gens).Select(f => (f.First, f.Second)))
 #else
-						Gen.Frequency(freqs.Zip(gens).Select(f => (f.t, f.u)))
+						Gen.Frequency(freqs.ZipWith(gens).Select(f => (f.t, f.u)))
 #endif
 				)
 				.ToArbitrary();
