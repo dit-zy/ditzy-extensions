@@ -42,29 +42,55 @@ namespace DitzyExtensions.Collection {
 		public static IList<T> AsSingletonList<T>(this T value) =>
 			new[] { value }.AsList();
 
+		/// <summary>
+		/// Returns whether the <b>source</b> collection is empty.
+		/// </summary>
+		/// <param name="source">The source collection.</param>
+		/// <typeparam name="T">The type of elements of <b>source</b></typeparam>
+		/// <returns>Whether the <b>source</b> collection is empty.</returns>
 		public static bool IsEmpty<T>(this ICollection<T> source) =>
 			source.Count == 0;
 
+		/// <summary>
+		/// Returns whether the <b>source</b> collection is <b>not</b> empty.
+		/// </summary>
+		/// <param name="source">The source collection.</param>
+		/// <typeparam name="T">The type of elements of <b>source</b>.</typeparam>
+		/// <returns>Whether the <b>source</b> collection is <b>not</b> empty.</returns>
 		public static bool IsNotEmpty<T>(this ICollection<T> source) =>
 			0 < source.Count;
 
+		/// <summary>
+		/// Concatenate the enumerables in <b>source</b> into one single enumerable.
+		/// </summary>
+		/// <param name="source">The source of enumerables.</param>
+		/// <typeparam name="T">The type of elements of <b>source</b>.</typeparam>
+		/// <returns>A single enumerable of all the elements in the enumerables within <b>source</b>.</returns>
+		/// <example>
+		/// <code>
+		/// [[1, 2], [3], [4, 5, 6]].Flatten(); // [1, 2, 3, 4, 5, 6]
+		/// </code>
+		/// </example>
 		public static IEnumerable<T> Flatten<T>(this IEnumerable<IEnumerable<T>> source) =>
 			source.SelectMany(x => x);
 
 		/// <summary>
-		/// Return a subset of the <c>source</c> enumerable, only containing the first <c>numElements</c> number of elements. If <c>numElements</c> is negative, then returns up to that many elements from the end of the <c>source</c>.
+		/// Return a subset of the <b>source</b> enumerable, only containing the first <b>numElements</b> elements.
 		/// </summary>
-		/// <param name="source">The source of the elements to return.</param>
-		/// <param name="numElements">The number of elements to return, starting at the beginning of <c>source</c>. If <c>numElements</c> is <c>&lt; 0</c> then returns elements up to that many from the end of <c>source</c>.</param>
-		/// <typeparam name="T"></typeparam>
-		/// <returns>The first <c>numElements</c> number of elements from <c>source</c>.</returns>
+		/// <param name="source">The source of elements.</param>
+		/// <param name="numElements">The number of elements to return, starting at the beginning of <b>source</b>. If
+		/// <c>numElements &lt; 0</c> then returns elements up to that many from the end of <b>source</b>. The default of
+		/// <c>1</c> returns only the first element.</param>
+		/// <typeparam name="T">The type of the elements of <b>source</b>.</typeparam>
+		/// <returns>The first <b>numElements</b> elements from <b>source</b>.</returns>
 		/// <example>
 		/// <code>
+		/// [1, 2, 3, 4].Head(); // [1]
 		/// [1, 2, 3, 4].Head(2); // [1, 2]
-		/// [1, 2, 3, 4].Head(0); // [];
-		/// [1, 2, 3, 4].Head(-1); // [1, 2, 3];
-		/// [1, 2, 3, 4].Head(10); // [1, 2, 3, 4];
-		/// [1, 2, 3, 4].Head(-10); // [];
+		/// [1, 2, 3, 4].Head(0); // []
+		/// [1, 2, 3, 4].Head(-1); // [1, 2, 3]
+		/// [1, 2, 3, 4].Head(10); // [1, 2, 3, 4]
+		/// [1, 2, 3, 4].Head(-10); // []
 		/// </code>
 		/// </example>
 		public static IEnumerable<T> Head<T>(this IEnumerable<T> source, int numElements = 1) {
@@ -82,19 +108,22 @@ namespace DitzyExtensions.Collection {
 		}
 
 		/// <summary>
-		/// Return a subset of the <c>source</c> enumerable, only containing the last <c>numElements</c> number of elements. If <c>numElements</c> is negative, returns elements starting from that many elements from the beginning of <c>source</c>.
+		/// Return a subset of the <b>source</b> enumerable, only containing the last <b>numElements</b> elements.
 		/// </summary>
-		/// <param name="source">The source of the elements to return.</param>
-		/// <param name="numElements">The number of elements to return, from the end of <c>source</c>. If <c>numElements</c> is <c>&lt; 0</c> then returns elements up to that many from the beginning of <c>source</c>.</param>
-		/// <typeparam name="T"></typeparam>
-		/// <returns>The last <c>numElements</c> number of elements from <c>source</c>.</returns>
+		/// <param name="source">The source of elements.</param>
+		/// <param name="numElements">The number of elements to return from the end of <b>source</b>. If <c>numElements
+		/// &lt; 0</c> then skips that many elements and returns the rest (<c>source.Tail(-3) == source.Skip(3)</c>). The
+		/// default of <c>-1</c> returns all elements except for the very first one.</param>
+		/// <typeparam name="T">The type of the elements of <b>source</b>.</typeparam>
+		/// <returns>The last <b>numElements</b> elements from <b>source</b>.</returns>
 		/// <example>
 		/// <code>
+		/// [1, 2, 3, 4].Tail(); // [2, 3, 4];
 		/// [1, 2, 3, 4].Tail(2); // [3, 4]
 		/// [1, 2, 3, 4].Tail(0); // [];
 		/// [1, 2, 3, 4].Tail(-1); // [2, 3, 4];
 		/// [1, 2, 3, 4].Tail(10); // [1, 2, 3, 4];
-		/// [1, 2, 3, 4].Tail(-10); // [0];
+		/// [1, 2, 3, 4].Tail(-10); // [];
 		/// </code>
 		/// </example>
 		public static IEnumerable<T> Tail<T>(this IEnumerable<T> source, int numElements = -1) {
