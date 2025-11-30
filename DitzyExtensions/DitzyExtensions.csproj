@@ -3,7 +3,7 @@
 	<PropertyGroup Label="feature">
 		<Authors>dit-zy</Authors>
 		<Title>Ditzy Extensions</Title>
-		<Version>3.0.0</Version>
+		<Version>3.1.0-SNAPSHOT-0</Version>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<Description>a collection of extensions and utilities for making it easier and more convenient to program in a functional style and with collection classes.</Description>
 		<RepositoryUrl>https://github.com/dit-zy/ditzy-extensions</RepositoryUrl>
