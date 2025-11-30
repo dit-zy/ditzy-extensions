@@ -7,7 +7,6 @@ using FluentAssertions;
 using FsCheck;
 using FsCheck.Xunit;
 using JetBrains.Annotations;
-using Xunit;
 using FCU = DitzyExtensions.Testing.FsCheck.FsCheckUtils;
 
 namespace DitzyExtensions.Tests.Collections {
@@ -97,7 +96,7 @@ namespace DitzyExtensions.Tests.Collections {
 		);
 
 		#endregion
-
+		
 		#region select element with transform
 
 		[Property]
@@ -178,6 +177,653 @@ namespace DitzyExtensions.Tests.Collections {
 			ls => {
 				var expected = ls.Select(pair => pair.d).Select(TestTransform);
 				ls.SelectFourth(TestTransform).Should().BeEquivalentTo(expected);
+			}
+		);
+
+		#endregion
+
+		#region select element with transform and index
+
+		[Property]
+		public Property SelectFirst_Transform_Index_2() => FCU.ForAll(
+			Arbs.Int().Choose2().ListOf(),
+			ls => {
+				var expected = ls.Select((pair, i) => TestTransform2(pair.a, i));
+				ls.SelectFirst(TestTransform2).Should().BeEquivalentTo(expected);
+			}
+		);
+
+		[Property]
+		public Property SelectFirst_Transform_Index_3() => FCU.ForAll(
+			Arbs.Int().Choose3().ListOf(),
+			ls => {
+				var expected = ls.Select((pair, i) => TestTransform2(pair.a, i));
+				ls.SelectFirst(TestTransform2).Should().BeEquivalentTo(expected);
+			}
+		);
+
+		[Property]
+		public Property SelectFirst_Transform_Index_4() => FCU.ForAll(
+			Arbs.Int().Choose4().ListOf(),
+			ls => {
+				var expected = ls.Select((pair, i) => TestTransform2(pair.a, i));
+				ls.SelectFirst(TestTransform2).Should().BeEquivalentTo(expected);
+			}
+		);
+
+		[Property]
+		public Property SelectSecond_Transform_Index_2() => FCU.ForAll(
+			Arbs.Int().Choose2().ListOf(),
+			ls => {
+				var expected = ls.Select((pair, i) => TestTransform2(pair.b, i));
+				ls.SelectSecond(TestTransform2).Should().BeEquivalentTo(expected);
+			}
+		);
+
+		[Property]
+		public Property SelectSecond_Transform_Index_3() => FCU.ForAll(
+			Arbs.Int().Choose3().ListOf(),
+			ls => {
+				var expected = ls.Select((pair, i) => TestTransform2(pair.b, i));
+				ls.SelectSecond(TestTransform2).Should().BeEquivalentTo(expected);
+			}
+		);
+
+		[Property]
+		public Property SelectSecond_Transform_Index_4() => FCU.ForAll(
+			Arbs.Int().Choose4().ListOf(),
+			ls => {
+				var expected = ls.Select((pair, i) => TestTransform2(pair.b, i));
+				ls.SelectSecond(TestTransform2).Should().BeEquivalentTo(expected);
+			}
+		);
+
+		[Property]
+		public Property SelectThird_Transform_Index_3() => FCU.ForAll(
+			Arbs.Int().Choose3().ListOf(),
+			ls => {
+				var expected = ls.Select((pair, i) => TestTransform2(pair.c, i));
+				ls.SelectThird(TestTransform2).Should().BeEquivalentTo(expected);
+			}
+		);
+
+		[Property]
+		public Property SelectThird_Transform_Index_4() => FCU.ForAll(
+			Arbs.Int().Choose4().ListOf(),
+			ls => {
+				var expected = ls.Select((pair, i) => TestTransform2(pair.c, i));
+				ls.SelectThird(TestTransform2).Should().BeEquivalentTo(expected);
+			}
+		);
+
+		[Property]
+		public Property SelectFourth_Transform_Index_4() => FCU.ForAll(
+			Arbs.Int().Choose4().ListOf(),
+			ls => {
+				var expected = ls.Select((pair, i) => TestTransform2(pair.d, i));
+				ls.SelectFourth(TestTransform2).Should().BeEquivalentTo(expected);
+			}
+		);
+
+		#endregion
+
+		#region select entries
+
+		[Property]
+		public Property SelectEntries_2() => FCU.ForAll(
+			Arbs.Int().Choose2().ListOf(),
+			ls => {
+				var expected = ls.Select(pair => TestTransform2(pair.a, pair.b));
+				ls.SelectEntries(TestTransform2).Should().BeEquivalentTo(expected);
+			}
+		);
+
+		[Property]
+		public Property SelectEntries_3() => FCU.ForAll(
+			Arbs.Int().Choose3().ListOf(),
+			ls => {
+				var expected = ls.Select(pair => TestTransform3(pair.a, pair.b, pair.c));
+				ls.SelectEntries(TestTransform3).Should().BeEquivalentTo(expected);
+			}
+		);
+
+		[Property]
+		public Property SelectEntries_4() => FCU.ForAll(
+			Arbs.Int().Choose4().ListOf(),
+			ls => {
+				var expected = ls.Select(pair => TestTransform4(pair.a, pair.b, pair.c, pair.d));
+				ls.SelectEntries(TestTransform4).Should().BeEquivalentTo(expected);
+			}
+		);
+
+		[Property]
+		public Property SelectEntries_Index_2() => FCU.ForAll(
+			Arbs.Int().Choose2().ListOf(),
+			ls => {
+				var expected = ls.Select((pair, i) => TestTransform3(pair.a, pair.b, i));
+				ls.SelectEntries(TestTransform3).Should().BeEquivalentTo(expected);
+			}
+		);
+
+		[Property]
+		public Property SelectEntries_Index_3() => FCU.ForAll(
+			Arbs.Int().Choose3().ListOf(),
+			ls => {
+				var expected = ls.Select((pair, i) => TestTransform4(pair.a, pair.b, pair.c, i));
+				ls.SelectEntries(TestTransform4).Should().BeEquivalentTo(expected);
+			}
+		);
+
+		[Property]
+		public Property SelectEntries_Index_4() => FCU.ForAll(
+			Arbs.Int().Choose4().ListOf(),
+			ls => {
+				var expected = ls.Select((pair, i) => TestTransform5(pair.a, pair.b, pair.c, pair.d, i));
+				ls.SelectEntries(TestTransform5).Should().BeEquivalentTo(expected);
+			}
+		);
+
+		#endregion
+		
+		#region where element
+
+		[Property]
+		public Property WhereFirst_2() => FCU.ForAll(
+			Arbs.Float().Choose2().ListOf(),
+			ls => {
+				var expected = ls.Where(pair => TestWhere(pair.a));
+				ls.WhereFirst(TestWhere).Should().BeEquivalentTo(expected);
+			}
+		);
+
+		[Property]
+		public Property WhereFirst_3() => FCU.ForAll(
+			Arbs.Float().Choose3().ListOf(),
+			ls => {
+				var expected = ls.Where(pair => TestWhere(pair.a));
+				ls.WhereFirst(TestWhere).Should().BeEquivalentTo(expected);
+			}
+		);
+
+		[Property]
+		public Property WhereFirst_4() => FCU.ForAll(
+			Arbs.Float().Choose4().ListOf(),
+			ls => {
+				var expected = ls.Where(pair => TestWhere(pair.a));
+				ls.WhereFirst(TestWhere).Should().BeEquivalentTo(expected);
+			}
+		);
+
+		[Property]
+		public Property WhereSecond_2() => FCU.ForAll(
+			Arbs.Float().Choose2().ListOf(),
+			ls => {
+				var expected = ls.Where(pair => TestWhere(pair.b));
+				ls.WhereSecond(TestWhere).Should().BeEquivalentTo(expected);
+			}
+		);
+
+		[Property]
+		public Property WhereSecond_3() => FCU.ForAll(
+			Arbs.Float().Choose3().ListOf(),
+			ls => {
+				var expected = ls.Where(pair => TestWhere(pair.b));
+				ls.WhereSecond(TestWhere).Should().BeEquivalentTo(expected);
+			}
+		);
+
+		[Property]
+		public Property WhereSecond_4() => FCU.ForAll(
+			Arbs.Float().Choose4().ListOf(),
+			ls => {
+				var expected = ls.Where(pair => TestWhere(pair.b));
+				ls.WhereSecond(TestWhere).Should().BeEquivalentTo(expected);
+			}
+		);
+
+		[Property]
+		public Property WhereThird_3() => FCU.ForAll(
+			Arbs.Float().Choose3().ListOf(),
+			ls => {
+				var expected = ls.Where(pair => TestWhere(pair.c));
+				ls.WhereThird(TestWhere).Should().BeEquivalentTo(expected);
+			}
+		);
+
+		[Property]
+		public Property WhereThird_4() => FCU.ForAll(
+			Arbs.Float().Choose4().ListOf(),
+			ls => {
+				var expected = ls.Where(pair => TestWhere(pair.c));
+				ls.WhereThird(TestWhere).Should().BeEquivalentTo(expected);
+			}
+		);
+
+		[Property]
+		public Property WhereFourth_4() => FCU.ForAll(
+			Arbs.Float().Choose4().ListOf(),
+			ls => {
+				var expected = ls.Where(pair => TestWhere(pair.d));
+				ls.WhereFourth(TestWhere).Should().BeEquivalentTo(expected);
+			}
+		);
+
+		#endregion
+
+		#region where element with index
+
+		[Property]
+		public Property WhereFirst_Index_2() => FCU.ForAll(
+			Arbs.Float().Choose2().ListOf(),
+			ls => {
+				var expected = ls.Where((pair, i) => TestWhere2(pair.a, i));
+				ls.WhereFirst(TestWhereIx).Should().BeEquivalentTo(expected);
+			}
+		);
+
+		[Property]
+		public Property WhereFirst_Index_3() => FCU.ForAll(
+			Arbs.Float().Choose3().ListOf(),
+			ls => {
+				var expected = ls.Where((pair, i) => TestWhereIx(pair.a, i));
+				ls.WhereFirst(TestWhereIx).Should().BeEquivalentTo(expected);
+			}
+		);
+
+		[Property]
+		public Property WhereFirst_Index_4() => FCU.ForAll(
+			Arbs.Float().Choose4().ListOf(),
+			ls => {
+				var expected = ls.Where((pair, i) => TestWhereIx(pair.a, i));
+				ls.WhereFirst(TestWhereIx).Should().BeEquivalentTo(expected);
+			}
+		);
+
+		[Property]
+		public Property WhereSecond_Index_2() => FCU.ForAll(
+			Arbs.Float().Choose2().ListOf(),
+			ls => {
+				var expected = ls.Where((pair, i) => TestWhereIx(pair.b, i));
+				ls.WhereSecond(TestWhereIx).Should().BeEquivalentTo(expected);
+			}
+		);
+
+		[Property]
+		public Property WhereSecond_Index_3() => FCU.ForAll(
+			Arbs.Float().Choose3().ListOf(),
+			ls => {
+				var expected = ls.Where((pair, i) => TestWhereIx(pair.b, i));
+				ls.WhereSecond(TestWhereIx).Should().BeEquivalentTo(expected);
+			}
+		);
+
+		[Property]
+		public Property WhereSecond_Index_4() => FCU.ForAll(
+			Arbs.Float().Choose4().ListOf(),
+			ls => {
+				var expected = ls.Where((pair, i) => TestWhereIx(pair.b, i));
+				ls.WhereSecond(TestWhereIx).Should().BeEquivalentTo(expected);
+			}
+		);
+
+		[Property]
+		public Property WhereThird_Index_3() => FCU.ForAll(
+			Arbs.Float().Choose3().ListOf(),
+			ls => {
+				var expected = ls.Where((pair, i) => TestWhereIx(pair.c, i));
+				ls.WhereThird(TestWhereIx).Should().BeEquivalentTo(expected);
+			}
+		);
+
+		[Property]
+		public Property WhereThird_Index_4() => FCU.ForAll(
+			Arbs.Float().Choose4().ListOf(),
+			ls => {
+				var expected = ls.Where((pair, i) => TestWhereIx(pair.c, i));
+				ls.WhereThird(TestWhereIx).Should().BeEquivalentTo(expected);
+			}
+		);
+
+		[Property]
+		public Property WhereFourth_Index_4() => FCU.ForAll(
+			Arbs.Float().Choose4().ListOf(),
+			ls => {
+				var expected = ls.Where((pair, i) => TestWhereIx(pair.d, i));
+				ls.WhereFourth(TestWhereIx).Should().BeEquivalentTo(expected);
+			}
+		);
+
+		#endregion
+
+		#region where entries
+
+		[Property]
+		public Property WhereEntries_2() => FCU.ForAll(
+			Arbs.Float().Choose2().ListOf(),
+			ls => {
+				var expected = ls.Where(pair => TestWhere2(pair.a, pair.b));
+				ls.WhereEntries(TestWhere2).Should().BeEquivalentTo(expected);
+			}
+		);
+
+		[Property]
+		public Property WhereEntries_3() => FCU.ForAll(
+			Arbs.Float().Choose3().ListOf(),
+			ls => {
+				var expected = ls.Where(pair => TestWhere3(pair.a, pair.b, pair.c));
+				ls.WhereEntries(TestWhere3).Should().BeEquivalentTo(expected);
+			}
+		);
+
+		[Property]
+		public Property WhereEntries_4() => FCU.ForAll(
+			Arbs.Float().Choose4().ListOf(),
+			ls => {
+				var expected = ls.Where(pair => TestWhere4(pair.a, pair.b, pair.c, pair.d));
+				ls.WhereEntries(TestWhere4).Should().BeEquivalentTo(expected);
+			}
+		);
+
+		[Property]
+		public Property WhereEntries_Index_2() => FCU.ForAll(
+			Arbs.Float().Choose2().ListOf(),
+			ls => {
+				var expected = ls.Where((pair, i) => TestWhere2Ix(pair.a, pair.b, i));
+				ls.WhereEntries(TestWhere2Ix).Should().BeEquivalentTo(expected);
+			}
+		);
+
+		[Property]
+		public Property WhereEntries_Index_3() => FCU.ForAll(
+			Arbs.Float().Choose3().ListOf(),
+			ls => {
+				var expected = ls.Where((pair, i) => TestWhere3Ix(pair.a, pair.b, pair.c, i));
+				ls.WhereEntries(TestWhere3Ix).Should().BeEquivalentTo(expected);
+			}
+		);
+
+		[Property]
+		public Property WhereEntries_Index_4() => FCU.ForAll(
+			Arbs.Float().Choose4().ListOf(),
+			ls => {
+				var expected = ls.Where((pair, i) => TestWhere4Ix(pair.a, pair.b, pair.c, pair.d, i));
+				ls.WhereEntries(TestWhere4Ix).Should().BeEquivalentTo(expected);
+			}
+		);
+
+		#endregion
+
+		#region foreach element
+
+		[Property]
+		public Property ForEachFirst_2() => FCU.ForAll(
+			Arbs.Int().Choose2().ListOf(),
+			ls => {
+				var expectedSum = ls.Select(pair => pair.a).Sum() + 7f;
+				var actualSum = 7f;
+				ls.ForEachFirst(x => actualSum += x).Should().BeEquivalentTo(ls);
+				actualSum.Should().Be(expectedSum);
+			}
+		);
+
+		[Property]
+		public Property ForEachFirst_3() => FCU.ForAll(
+			Arbs.Int().Choose3().ListOf(),
+			ls => {
+				var expectedSum = ls.Select(pair => pair.a).Sum() + 7f;
+				var actualSum = 7f;
+				ls.ForEachFirst(x => actualSum += x).Should().BeEquivalentTo(ls);
+				actualSum.Should().Be(expectedSum);
+			}
+		);
+
+		[Property]
+		public Property ForEachFirst_4() => FCU.ForAll(
+			Arbs.Int().Choose4().ListOf(),
+			ls => {
+				var expectedSum = ls.Select(pair => pair.a).Sum() + 7f;
+				var actualSum = 7f;
+				ls.ForEachFirst(x => actualSum += x).Should().BeEquivalentTo(ls);
+				actualSum.Should().Be(expectedSum);
+			}
+		);
+
+		[Property]
+		public Property ForEachSecond_2() => FCU.ForAll(
+			Arbs.Int().Choose2().ListOf(),
+			ls => {
+				var expectedSum = ls.Select(pair => pair.b).Sum() + 7f;
+				var actualSum = 7f;
+				ls.ForEachSecond(x => actualSum += x).Should().BeEquivalentTo(ls);
+				actualSum.Should().Be(expectedSum);
+			}
+		);
+
+		[Property]
+		public Property ForEachSecond_3() => FCU.ForAll(
+			Arbs.Int().Choose3().ListOf(),
+			ls => {
+				var expectedSum = ls.Select(pair => pair.b).Sum() + 7f;
+				var actualSum = 7f;
+				ls.ForEachSecond(x => actualSum += x).Should().BeEquivalentTo(ls);
+				actualSum.Should().Be(expectedSum);
+			}
+		);
+
+		[Property]
+		public Property ForEachSecond_4() => FCU.ForAll(
+			Arbs.Int().Choose4().ListOf(),
+			ls => {
+				var expectedSum = ls.Select(pair => pair.b).Sum() + 7f;
+				var actualSum = 7f;
+				ls.ForEachSecond(x => actualSum += x).Should().BeEquivalentTo(ls);
+				actualSum.Should().Be(expectedSum);
+			}
+		);
+
+		[Property]
+		public Property ForEachThird_3() => FCU.ForAll(
+			Arbs.Int().Choose3().ListOf(),
+			ls => {
+				var expectedSum = ls.Select(pair => pair.c).Sum() + 7f;
+				var actualSum = 7f;
+				ls.ForEachThird(x => actualSum += x).Should().BeEquivalentTo(ls);
+				actualSum.Should().Be(expectedSum);
+			}
+		);
+
+		[Property]
+		public Property ForEachThird_4() => FCU.ForAll(
+			Arbs.Int().Choose4().ListOf(),
+			ls => {
+				var expectedSum = ls.Select(pair => pair.c).Sum() + 7f;
+				var actualSum = 7f;
+				ls.ForEachThird(x => actualSum += x).Should().BeEquivalentTo(ls);
+				actualSum.Should().Be(expectedSum);
+			}
+		);
+
+		[Property]
+		public Property ForEachFourth_4() => FCU.ForAll(
+			Arbs.Int().Choose4().ListOf(),
+			ls => {
+				var expectedSum = ls.Select(pair => pair.d).Sum() + 7f;
+				var actualSum = 7f;
+				ls.ForEachFourth(x => actualSum += x).Should().BeEquivalentTo(ls);
+				actualSum.Should().Be(expectedSum);
+			}
+		);
+
+		#endregion
+
+		#region foreach element with index
+
+		[Property]
+		public Property ForEachFirst_Index_2() => FCU.ForAll(
+			Arbs.Int().Choose2().ListOf(),
+			ls => {
+				var expectedSum = ls.Select((pair, i) => pair.a + i).Sum() + 7f;
+				var actualSum = 7f;
+				ls.ForEachFirst((x, i) => actualSum += x + i).Should().BeEquivalentTo(ls);
+				actualSum.Should().Be(expectedSum);
+			}
+		);
+
+		[Property]
+		public Property ForEachFirst_Index_3() => FCU.ForAll(
+			Arbs.Int().Choose3().ListOf(),
+			ls => {
+				var expectedSum = ls.Select((pair, i) => pair.a + i).Sum() + 7f;
+				var actualSum = 7f;
+				ls.ForEachFirst((x, i) => actualSum += x + i).Should().BeEquivalentTo(ls);
+				actualSum.Should().Be(expectedSum);
+			}
+		);
+
+		[Property]
+		public Property ForEachFirst_Index_4() => FCU.ForAll(
+			Arbs.Int().Choose4().ListOf(),
+			ls => {
+				var expectedSum = ls.Select((pair, i) => pair.a + i).Sum() + 7f;
+				var actualSum = 7f;
+				ls.ForEachFirst((x, i) => actualSum += x + i).Should().BeEquivalentTo(ls);
+				actualSum.Should().Be(expectedSum);
+			}
+		);
+
+		[Property]
+		public Property ForEachSecond_Index_2() => FCU.ForAll(
+			Arbs.Int().Choose2().ListOf(),
+			ls => {
+				var expectedSum = ls.Select((pair, i) => pair.b + i).Sum() + 7f;
+				var actualSum = 7f;
+				ls.ForEachSecond((x, i) => actualSum += x + i).Should().BeEquivalentTo(ls);
+				actualSum.Should().Be(expectedSum);
+			}
+		);
+
+		[Property]
+		public Property ForEachSecond_Index_3() => FCU.ForAll(
+			Arbs.Int().Choose3().ListOf(),
+			ls => {
+				var expectedSum = ls.Select((pair, i) => pair.b + i).Sum() + 7f;
+				var actualSum = 7f;
+				ls.ForEachSecond((x, i) => actualSum += x + i).Should().BeEquivalentTo(ls);
+				actualSum.Should().Be(expectedSum);
+			}
+		);
+
+		[Property]
+		public Property ForEachSecond_Index_4() => FCU.ForAll(
+			Arbs.Int().Choose4().ListOf(),
+			ls => {
+				var expectedSum = ls.Select((pair, i) => pair.b + i).Sum() + 7f;
+				var actualSum = 7f;
+				ls.ForEachSecond((x, i) => actualSum += x + i).Should().BeEquivalentTo(ls);
+				actualSum.Should().Be(expectedSum);
+			}
+		);
+
+		[Property]
+		public Property ForEachThird_Index_3() => FCU.ForAll(
+			Arbs.Int().Choose3().ListOf(),
+			ls => {
+				var expectedSum = ls.Select((pair, i) => pair.c + i).Sum() + 7f;
+				var actualSum = 7f;
+				ls.ForEachThird((x, i) => actualSum += x + i).Should().BeEquivalentTo(ls);
+				actualSum.Should().Be(expectedSum);
+			}
+		);
+
+		[Property]
+		public Property ForEachThird_Index_4() => FCU.ForAll(
+			Arbs.Int().Choose4().ListOf(),
+			ls => {
+				var expectedSum = ls.Select((pair, i) => pair.c + i).Sum() + 7f;
+				var actualSum = 7f;
+				ls.ForEachThird((x, i) => actualSum += x + i).Should().BeEquivalentTo(ls);
+				actualSum.Should().Be(expectedSum);
+			}
+		);
+
+		[Property]
+		public Property ForEachFourth_Index_4() => FCU.ForAll(
+			Arbs.Int().Choose4().ListOf(),
+			ls => {
+				var expectedSum = ls.Select((pair, i) => pair.d + i).Sum() + 7f;
+				var actualSum = 7f;
+				ls.ForEachFourth((x, i) => actualSum += x + i).Should().BeEquivalentTo(ls);
+				actualSum.Should().Be(expectedSum);
+			}
+		);
+
+		#endregion
+
+		#region foreach entry
+
+		[Property]
+		public Property ForEachEntry_2() => FCU.ForAll(
+			Arbs.Int().Choose2().ListOf(),
+			ls => {
+				var expectedSum = ls.Select(t => t.a + t.b).Sum() + 7f;
+				var actualSum = 7f;
+				ls.ForEachEntry((a, b) => actualSum += a + b).Should().BeEquivalentTo(ls);
+				actualSum.Should().Be(expectedSum);
+			}
+		);
+
+		[Property]
+		public Property ForEachEntries_3() => FCU.ForAll(
+			Arbs.Int().Choose3().ListOf(),
+			ls => {
+				var expectedSum = ls.Select(t => t.a + t.b + t.c).Sum() + 7f;
+				var actualSum = 7f;
+				ls.ForEachEntry((a, b, c) => actualSum += a + b + c).Should().BeEquivalentTo(ls);
+				actualSum.Should().Be(expectedSum);
+			}
+		);
+
+		[Property]
+		public Property ForEachEntries_4() => FCU.ForAll(
+			Arbs.Int().Choose4().ListOf(),
+			ls => {
+				var expectedSum = ls.Select(t => t.a + t.b + t.c + t.d).Sum() + 7f;
+				var actualSum = 7f;
+				ls.ForEachEntry((a, b, c, d) => actualSum += a + b + c + d).Should().BeEquivalentTo(ls);
+				actualSum.Should().Be(expectedSum);
+			}
+		);
+
+		[Property]
+		public Property ForEachEntries_Index_2() => FCU.ForAll(
+			Arbs.Int().Choose2().ListOf(),
+			ls => {
+				var expectedSum = ls.Select((t, i) => t.a + t.b + i).Sum() + 7f;
+				var actualSum = 7f;
+				ls.ForEachEntry((a, b, i) => actualSum += a + b + i).Should().BeEquivalentTo(ls);
+				actualSum.Should().Be(expectedSum);
+			}
+		);
+
+		[Property]
+		public Property ForEachEntries_Index_3() => FCU.ForAll(
+			Arbs.Int().Choose3().ListOf(),
+			ls => {
+				var expectedSum = ls.Select((t, i) => t.a + t.b + t.c + i).Sum() + 7f;
+				var actualSum = 7f;
+				ls.ForEachEntry((a, b, c, i) => actualSum += a + b + c + i).Should().BeEquivalentTo(ls);
+				actualSum.Should().Be(expectedSum);
+			}
+		);
+
+		[Property]
+		public Property ForEachEntries_Index_4() => FCU.ForAll(
+			Arbs.Int().Choose4().ListOf(),
+			ls => {
+				var expectedSum = ls.Select((t, i) => t.a + t.b + t.c + t.d + i).Sum() + 7f;
+				var actualSum = 7f;
+				ls.ForEachEntry((a, b, c, d, i) => actualSum += a + b + c + d + i).Should().BeEquivalentTo(ls);
+				actualSum.Should().Be(expectedSum);
 			}
 		);
 
@@ -386,6 +1032,17 @@ namespace DitzyExtensions.Tests.Collections {
 		private static int TestTransform2(int x, int y) => x + y + 10;
 		private static int TestTransform3(int x, int y, int z) => x + y + z + 10;
 		private static int TestTransform4(int x, int y, int z, int w) => x + y + z + w + 10;
+		private static int TestTransform5(int x, int y, int z, int w, int v) => x + y + z + w + v + 10;
+
+		private static bool TestWhere(float x) => 10 < x + 10;
+		private static bool TestWhere2(float x, float y) => 10 < x + y + 10;
+		private static bool TestWhere3(float x, float y, float z) => 10 < x + y + z + 10;
+		private static bool TestWhere4(float x, float y, float z, float w) => 10 < x + y + z + w + 10;
+
+		private static bool TestWhereIx(float x, int i) => 10 < x + i + 10;
+		private static bool TestWhere2Ix(float x, float y, int i) => 10 < x + y + i + 10;
+		private static bool TestWhere3Ix(float x, float y, float z, int i) => 10 < x + y + z + i + 10;
+		private static bool TestWhere4Ix(float x, float y, float z, float w, int i) => 10 < x + y + z + w + i + 10;
 
 		private static int TestTransform2List(
 			IEnumerable<int> xs,

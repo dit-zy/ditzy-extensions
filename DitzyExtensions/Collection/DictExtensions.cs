@@ -161,7 +161,7 @@ namespace DitzyExtensions.Collection {
 
 		#region loops
 
-		public static IDictionary<K, V> ForEachEntry<K, V>(this IDictionary<K, V> source, Action<K, V> action)
+		public static IDictionary<K, V> ForEachEntry<K, V>(this IEnumerable<KeyValuePair<K, V>> source, Action<K, V> action)
 #if N48_S2
 			=>
 #else
@@ -169,7 +169,10 @@ namespace DitzyExtensions.Collection {
 #endif
 			source.ForEach(kv => action(kv.Key, kv.Value)).AsDict();
 
-		public static IDictionary<K, V> ForEachEntry<K, V>(this IDictionary<K, V> source, Action<K, V, int> action)
+		public static IDictionary<K, V> ForEachEntry<K, V>(
+			this IEnumerable<KeyValuePair<K, V>> source,
+			Action<K, V, int> action
+		)
 #if N48_S2
 			=>
 #else
@@ -177,23 +180,41 @@ namespace DitzyExtensions.Collection {
 #endif
 			source.ForEach((kv, index) => action(kv.Key, kv.Value, index)).AsDict();
 
-		public static IEnumerable<T> SelectEntries<K, V, T>(this IDictionary<K, V> source, Func<K, V, T> transform) =>
+		public static IEnumerable<T> SelectEntries<K, V, T>(
+			this IEnumerable<KeyValuePair<K, V>> source,
+			Func<K, V, T> transform
+		) =>
 			source.Select(kv => transform(kv.Key, kv.Value));
 
-		public static IEnumerable<T> SelectEntries<K, V, T>(this IDictionary<K, V> source, Func<K, V, int, T> transform) =>
+		public static IEnumerable<T> SelectEntries<K, V, T>(
+			this IEnumerable<KeyValuePair<K, V>> source,
+			Func<K, V, int, T> transform
+		) =>
 			source.Select((kv, index) => transform(kv.Key, kv.Value, index));
 
 		public static IEnumerable<T> SelectManyEntries<K, V, T>(
-			this IDictionary<K, V> source,
+			this IEnumerable<KeyValuePair<K, V>> source,
 			Func<K, V, IEnumerable<T>> transform
 		) =>
 			source.SelectMany(kv => transform(kv.Key, kv.Value));
 
 		public static IEnumerable<T> SelectManyEntries<K, V, T>(
-			this IDictionary<K, V> source,
+			this IEnumerable<KeyValuePair<K, V>> source,
 			Func<K, V, int, IEnumerable<T>> transform
 		) =>
 			source.SelectMany((kv, index) => transform(kv.Key, kv.Value, index));
+
+		public static IEnumerable<KeyValuePair<K, V>> WhereEntries<K, V>(
+			this IEnumerable<KeyValuePair<K, V>> source,
+			Func<K, V, bool> transform
+		) =>
+			source.Where(kv => transform(kv.Key, kv.Value));
+
+		public static IEnumerable<KeyValuePair<K, V>> WhereEntries<K, V>(
+			this IEnumerable<KeyValuePair<K, V>> source,
+			Func<K, V, int, bool> transform
+		) =>
+			source.Where((kv, index) => transform(kv.Key, kv.Value, index));
 
 		#endregion
 
