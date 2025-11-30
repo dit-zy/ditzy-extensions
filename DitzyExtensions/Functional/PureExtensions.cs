@@ -5,7 +5,7 @@ using DitzyExtensions.Collection;
 
 namespace DitzyExtensions.Functional {
 	public static class PureExtensions {
-		public static bool NotEquals<T>(this T a, T b) => !a.Equals(b);
+		public static bool NotEquals<T>(this T a, T b) => !object.Equals(a, b);
 		
 		public static ACC Reduce<T, ACC>(this IEnumerable<T> source, Func<ACC, T, ACC> reducer, ACC initial) =>
 			source.Reduce((acc, value, _) => reducer(acc, value), initial);
