@@ -5,7 +5,7 @@
 			netcoreapp3.1 is here to test the netstandard2.0 version of ditzy extensions.
 			netstandard doesn't include a runtime so cannot be run for testing.
 		-->
-		<TargetFrameworks>net9.0;net8.0;net7.0;net6.0;net48;netcoreapp3.1</TargetFrameworks>
+		<TargetFrameworks>net10.0;net9.0;net8.0;net7.0;net6.0;net48;netcoreapp3.1</TargetFrameworks>
 		<IsPackable>false</IsPackable>
 	</PropertyGroup>
 
